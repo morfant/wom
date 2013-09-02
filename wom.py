@@ -38,8 +38,9 @@ class MainPage(webapp2.RequestHandler):
 		for transedWord in transedWords:
 			if transedWord.content:
 				self.response.write('<b>%s</b>' % transedWord.content)
-			else:
-				self.response.write('Nothing matched!')
+
+    def post(self):
+        self.response.write("kkkkk")
 
 class SecondPage(webapp2.RequestHandler):
 
