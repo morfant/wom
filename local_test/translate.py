@@ -61,4 +61,4 @@ if __name__ == '__main__':
     for k in kkkk:
         print sampleText.find(k)
         """
-    print("1: %s" % translate(sys.argv[2], readFileToDic(sys.argv[1])))
+    print("%s" % translate(sys.argv[2], readFileToDic(sys.argv[1])))
