@@ -15,7 +15,7 @@ def readFileToDic(filename):
     for line in lines:
         #print type(line)
         tline = line.split(" : ") #: 으로 나누는 것과 ' : '으로 나누는 것은 dic이 되었을 때 결과값이 다르다.
-        dicts[tline[0]] = tline[1]
+        dicts[tline[0]] = tline[1][:(len(tline[1]) - 1)] #마지막 문자인 '\n'을 제거한다.
         #print(line)
     keys = dicts.keys()
     contents = dicts.values()
@@ -40,27 +40,16 @@ def translate(sentence, dicts):
 
     for key in keys:
         if isMatch[key] == True:
-            sentence.replace(key, dicts[key])
+            sentence = sentence.replace(key, dicts[key])
     print sentence
+    return sentence
 
-def trans(sentence, word="hi", chWord="안녕"):
-    if type(sentence) == list:
-        print "this is a list"
-        for i in range(0, len(sentence)):
-            #print sentence[i]
-            pos = sentence[i].find(word)
-            #print pos
-            if pos != -1:
-                sentence[i] = sentence[i].replace(word, chWord)
-                #print sentence[i]
-            else:
-                print "Nothing matched!"
-
-        for i in range(0, len(sentence)):
-            print ("sentence[%d] : %s" % (i, sentence[i]))
-    else:
-        print "this is not a list"
-
+def translate2(sentence, dicts): #not find(), just replace() directly.
+    keys = dicts.keys()
+    for key in keys:
+        sentence = sentence.replace(key, dicts[key])
+    print sentence
+    return sentence
 
 def makeArgvToList():
     args = sys.argv
@@ -73,11 +62,12 @@ def makeArgvToList():
         return argList
 
 if __name__ == '__main__':
-    print sampleText
+    #print sampleText
     """
     kkkk = readFileToDic(sys.argv[1]).keys()
     print kkkk
     for k in kkkk:
         print sampleText.find(k)
         """
-    translate(sampleText, readFileToDic(sys.argv[1]))
+    print("1: %s" % translate(sys.argv[2], readFileToDic(sys.argv[1])))
+    print("2: %s" % translate2(sys.argv[2], readFileToDic(sys.argv[1])))
