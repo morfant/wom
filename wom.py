@@ -26,9 +26,9 @@ MAIN_PAGE_HTML = """\
         <div id = "demo2"><input type='submit' value='input'></div>
         </form>
 
-        <form>
+        <form method="get" action="/data">
             <div>
-                <input type="button" name="data" value="getData">
+                <input type="submit" value="printDB">
             </div>
         </form>
     </body>
@@ -50,6 +50,26 @@ SECOND_PAGE_HTML = """\
     </body>
 </html>
 """
+
+DATA_PAGE_HTML = """\
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+
+    </head>
+
+    <body>
+        <form method="GET" action="/">
+            <div><input type='submit' value='RETURN'></div>
+        </form>
+        <form method="GET" action="/data">
+            <div><input type='submit' value='CLEARDB'></div>
+        </form>
+    </body>
+</html>
+"""
+
 DEFAULT = "hello"
 DATA_FLIE = "data.txt"
 
@@ -58,7 +78,7 @@ def makeKey(wordToTrans = DEFAULT):
 
 class WOM(ndb.Model):
     keyword = ndb.StringProperty(indexed=True)
-    content = ndb.StringProperty(indexed=True, repeated=True) #to make 'list' type
+    content = ndb.StringProperty(indexed=True)
     date = ndb.DateTimeProperty(auto_now_add=True)
 
 class MainPage(webapp2.RequestHandler):
@@ -80,7 +100,7 @@ class MainPage(webapp2.RequestHandler):
 
             wom = WOM(parent=makeKey(key))
             wom.keyword = key
-            wom.content = escapeNvalue #리스트나 터플을 만들어서 넣어야 함
+            wom.content = escapeNvalue
             wom.put()
 
     def post(self):
@@ -109,6 +129,18 @@ class MainPage(webapp2.RequestHandler):
             wom.put()
             """
 
+class ViewDB(webapp2.RequestHandler):
+    def get(self):
+        womquery = WOM.query().order(-WOM.date)
+        queryReturns = womquery.fetch(20)
+
+        #print transedWords        
+        self.response.write('keyword / content<br>')
+        for queryReturn in queryReturns:
+            if queryReturn.content:
+                self.response.write(' %s / %s / %s <br>' % (queryReturn.keyword, queryReturn.content, queryReturn.date))
+
+        self.response.write(DATA_PAGE_HTML)
 
 
 class SecondPage(webapp2.RequestHandler):
@@ -142,4 +174,6 @@ class SecondPage(webapp2.RequestHandler):
 application = webapp2.WSGIApplication([
 	('/', MainPage),
 	('/test', SecondPage),
+    ('/data', ViewDB),
+    #('/del', DelDB)
 	], debug=True)

@@ -2,3 +2,6 @@ hi : lee
 hi : kim
 we : capote
 we : sunsun
+학교 : 번역을 가르쳐 주는 곳
+문래 : 마을
+문래 : 번
