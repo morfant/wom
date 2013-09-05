@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 import sys
+import random
 
 argList = []
 dicts = {}
@@ -15,40 +16,30 @@ def readFileToDic(filename):
     for line in lines:
         #print type(line)
         tline = line.split(" : ") #: 으로 나누는 것과 ' : '으로 나누는 것은 dic이 되었을 때 결과값이 다르다.
-        dicts[tline[0]] = tline[1][:(len(tline[1]) - 1)] #마지막 문자인 '\n'을 제거한다.
+        escapeNvalue = tline[1][:(len(tline[1]) - 1)] #마지막 문자인 '\n'을 제거한다.
+        if tline[0] in dicts:
+            #print "1"
+            dicts[tline[0]].append(escapeNvalue)
+            #print dicts
+        else:
+            #print "2"
+            dicts[tline[0]] = [escapeNvalue]
+            #print dicts
         #print(line)
-    keys = dicts.keys()
-    contents = dicts.values()
-    print dicts
+    #keys = dicts.keys()
+    #contents = dicts.values()
+    #print dicts
     #print keys
     #print contents
     return dicts
 
-#def translate(sentence=sampleText, keys=keys, contents=contents):
-def translate(sentence, dicts):
+def translate(sentence, dicts): #not find(), just replace() directly.
     keys = dicts.keys()
+    for key in keys:
+        if len(dicts[key]) > 1:
+            randnum = random.randint(0, (len(dicts[key]) - 1))
+            sentence = sentence.replace(key, dicts[key][randnum])
     #print sentence
-    for key in keys:
-        if sentence.find(key) == -1:
-            isMatch[key] = False
-            print "no match"
-        else:
-            print "match"
-            isMatch[key] = True
-
-    print isMatch
-
-    for key in keys:
-        if isMatch[key] == True:
-            sentence = sentence.replace(key, dicts[key])
-    print sentence
-    return sentence
-
-def translate2(sentence, dicts): #not find(), just replace() directly.
-    keys = dicts.keys()
-    for key in keys:
-        sentence = sentence.replace(key, dicts[key])
-    print sentence
     return sentence
 
 def makeArgvToList():
@@ -63,6 +54,7 @@ def makeArgvToList():
 
 if __name__ == '__main__':
     #print sampleText
+    #readFileToDic(sys.argv[1])
     """
     kkkk = readFileToDic(sys.argv[1]).keys()
     print kkkk
@@ -70,4 +62,3 @@ if __name__ == '__main__':
         print sampleText.find(k)
         """
     print("1: %s" % translate(sys.argv[2], readFileToDic(sys.argv[1])))
-    print("2: %s" % translate2(sys.argv[2], readFileToDic(sys.argv[1])))

@@ -1,4 +1,4 @@
-안녕 : 내 이름은 안녕
-안녕 : 김선생
-이름 : capote
-hi : 우쿠쿠쿠쿠 key
+안녕 : lee
+안녕 : kim
+날씨 : capote
+날씨 : key 선생 안
