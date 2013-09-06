@@ -11,6 +11,12 @@ indexes:
 # your application using appcfg.py.
 
 - kind: WOM
+  properties:
+  - name: keyword
+  - name: date
+    direction: desc
+
+- kind: WOM
   ancestor: yes
   properties:
   - name: date

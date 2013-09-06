@@ -31,6 +31,13 @@ MAIN_PAGE_HTML = """\
                 <input type="submit" value="printDB">
             </div>
         </form>
+
+        <form method="get" action="/find">
+            <div>
+                <input type="text" size="100" name="searchingWord">
+                <input type="submit" value="searchInDB">
+            </div>
+        </form>
     </body>
 </html>
 """
@@ -81,27 +88,15 @@ class WOM(ndb.Model):
     content = ndb.StringProperty(indexed=True)
     date = ndb.DateTimeProperty(auto_now_add=True)
 
+
 class MainPage(webapp2.RequestHandler):
     
     print (sys.getdefaultencoding())
 
     def get(self):
-        self.response.write(MAIN_PAGE_HTML)
-
-        f = open(DATA_FLIE, 'r')
-        lines = f.readlines()
-        for line in lines:
-            #print type(line)
-            tline = line.split(" : ") #: 으로 나누는 것과 ' : '으로 나누는 것은 dic이 되었을 때 결과값이 다르다.
-            key = tline[0]
-            print key
-            escapeNvalue = tline[1][:(len(tline[1]) - 1)] #마지막 문자인 '\n'을 제거한다.
-            print escapeNvalue
-
-            wom = WOM(parent=makeKey(key))
-            wom.keyword = key
-            wom.content = escapeNvalue
-            wom.put()
+        clearExistingDB()
+        self.response.out.write(MAIN_PAGE_HTML)
+        readFileToNdb()
 
     def post(self):
         userInputVal = self.request.get(u'userInput2', DEFAULT)
@@ -129,6 +124,55 @@ class MainPage(webapp2.RequestHandler):
             wom.put()
             """
 
+def clearExistingDB():
+    allwomqueries = WOM.query().fetch(9999, keys_only=True)
+    #'_multi' 함수의 인자인 keys 를 만들기 위해서는 keys_only 옵션을 이용해서 entity가 아니라 key만 return 되도록 해야 한다.
+    ndb.delete_multi(allwomqueries)
+    ndb.get_context().clear_cache()
+
+def readFileToNdb():
+    f = open(DATA_FLIE, 'r')
+    lines = f.readlines()
+    for line in lines:
+        #print type(line)
+        tline = line.split(" : ") #: 으로 나누는 것과 ' : '으로 나누는 것은 dic이 되었을 때 결과값이 다르다.
+        key = tline[0]
+        print key
+        escapeNvalue = tline[1][:(len(tline[1]) - 1)] #마지막 문자인 '\n'을 제거한다.
+        print escapeNvalue
+
+        wom = WOM(parent=makeKey(key))
+        wom.keyword = key
+        wom.content = escapeNvalue
+        wom.put()
+    f.close()
+
+
+class FillDB(webapp2.RequestHandler):
+    def get(self):
+        readFileToNdb()
+
+
+class FindDB(webapp2.RequestHandler):
+    def get(self):
+        tempvaluelist = []
+        keylist = []
+        toFind = self.request.get('searchingWord')
+        womquery = WOM.query(WOM.keyword == toFind)
+        queryReturns = womquery.fetch(10)
+
+        #print transedWords        
+        self.response.write('keyword / content<br>')
+        for queryReturn in queryReturns:
+            if queryReturn.content:
+                tempvaluelist.append(queryReturn.content)
+                keylist.append(queryReturn.keyword)
+
+        self.response.write(' %s / %s <br>' % (queryReturn.keyword, tempvaluelist[random.randint(0, len(tempvaluelist)-1)]))
+
+
+
+
 class ViewDB(webapp2.RequestHandler):
     def get(self):
         womquery = WOM.query().order(-WOM.date)
@@ -138,7 +182,8 @@ class ViewDB(webapp2.RequestHandler):
         self.response.write('keyword / content<br>')
         for queryReturn in queryReturns:
             if queryReturn.content:
-                self.response.write(' %s / %s / %s <br>' % (queryReturn.keyword, queryReturn.content, queryReturn.date))
+                self.response.write(' %s / %s / %s <br>' % \
+                    (queryReturn.keyword, queryReturn.content, queryReturn.date))
 
         self.response.write(DATA_PAGE_HTML)
 
@@ -175,5 +220,6 @@ application = webapp2.WSGIApplication([
 	('/', MainPage),
 	('/test', SecondPage),
     ('/data', ViewDB),
+    ('/find', FindDB)
     #('/del', DelDB)
 	], debug=True)
