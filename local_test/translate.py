@@ -35,7 +35,9 @@ def readFileToDic(filename):
 
 def translate(sentence, dicts): #not find(), just replace() directly.
     keys = dicts.keys()
+    print type(keys)
     for key in keys:
+        #print type(key)
         if len(dicts[key]) > 1:
             randnum = random.randint(0, (len(dicts[key]) - 1))
             sentence = sentence.replace(key, dicts[key][randnum])

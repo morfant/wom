@@ -8,7 +8,6 @@ import random
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
-
 MAIN_PAGE_HTML = """\
 <!DOCTYPE html>
 <html>
@@ -96,7 +95,7 @@ class MainPage(webapp2.RequestHandler):
     def get(self):
         clearExistingDB()
         self.response.out.write(MAIN_PAGE_HTML)
-        readFileToNdb()
+        readFileToNdb() #read data.txt
 
     def post(self):
         userInputVal = self.request.get(u'userInput2', DEFAULT)
@@ -131,50 +130,75 @@ def clearExistingDB():
     ndb.get_context().clear_cache()
 
 def readFileToNdb():
+    key_list = []
     f = open(DATA_FLIE, 'r')
     lines = f.readlines()
     for line in lines:
         #print type(line)
         tline = line.split(" : ") #: 으로 나누는 것과 ' : '으로 나누는 것은 dic이 되었을 때 결과값이 다르다.
         key = tline[0]
-        print key
+        #print key
         escapeNvalue = tline[1][:(len(tline[1]) - 1)] #마지막 문자인 '\n'을 제거한다.
-        print escapeNvalue
+        #print escapeNvalue
 
         wom = WOM(parent=makeKey(key))
         wom.keyword = key
         wom.content = escapeNvalue
         wom.put()
+        key_list.append(key) # make key list
     f.close()
+    print key_list
 
 
 class FillDB(webapp2.RequestHandler):
     def get(self):
         readFileToNdb()
 
+def makeKeyList():
+    key_list = []
+    f = open(DATA_FLIE, 'r')
+    lines = f.readlines()
+    for line in lines:
+        tline = line.split(" : ") #: 으로 나누는 것과 ' : '으로 나누는 것은 dic이 되었을 때 결과값이 다르다.
+        key = tline[0]
+        escapeNvalue = tline[1][:(len(tline[1]) - 1)] #마지막 문자인 '\n'을 제거한다.
+        key_list.append(key) # make key list
+    f.close()
+    return key_list
+
+
 
 class FindDB(webapp2.RequestHandler):
     def get(self):
+        #result = " "
         tempvaluelist = []
-        keylist = []
-        toFind = self.request.get('searchingWord')
-        womquery = WOM.query(WOM.keyword == toFind)
-        queryReturns = womquery.fetch(10)
 
-        #print transedWords        
-        self.response.write('keyword / content<br>')
-        for queryReturn in queryReturns:
-            if queryReturn.content:
-                tempvaluelist.append(queryReturn.content)
-                keylist.append(queryReturn.keyword)
+        keys = makeKeyList()
+        #print keys
+        #print type(keys[0])
+        toFind = self.request.get('searchingWord') #unicode
+        toFindstr = toFind.encode('utf-8')
 
-        self.response.write(' %s / %s <br>' % (queryReturn.keyword, tempvaluelist[random.randint(0, len(tempvaluelist)-1)]))
+        for key in keys:
+            #print key
+            womquery = WOM.query(WOM.keyword == key)
+            queryReturns = womquery.fetch(10)
+            if womquery:
+                for queryReturn in queryReturns:
+                    if queryReturn.content:
+                        tempvaluelist.append(queryReturn.content)
 
+            #print type(tempvaluelist[random.randint(0, len(tempvaluelist)-1)])
 
+            toFindstr = toFindstr.replace(key, tempvaluelist[random.randint(0, \
+                len(tempvaluelist)-1)].encode('utf-8'))
+            #print toFindstr
 
+        self.response.write(toFindstr)
 
 class ViewDB(webapp2.RequestHandler):
     def get(self):
+        print key_list
         womquery = WOM.query().order(-WOM.date)
         queryReturns = womquery.fetch(20)
 
