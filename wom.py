@@ -25,6 +25,10 @@ MAIN_PAGE_HTML = """\
         <div id = "demo2"><input type='submit' value='input'></div>
         </form>
 
+        <form method="get" action="/fillData">
+        <div><input type='submit' value='FillDB'></div>
+        </form>
+
         <form method="get" action="/data">
             <div>
                 <input type="submit" value="printDB">
@@ -77,7 +81,8 @@ DATA_PAGE_HTML = """\
 """
 
 DEFAULT = "hello"
-DATA_FLIE = "data.txt"
+DATA_FILE = "datalist.txt"
+#data.txt의 마지막 줄에는 내용 없는 엔터가 필요하다. 마지막 줄 끝에 \n 이 입력되어야 하기 때문에.
 
 def makeKey(wordToTrans = DEFAULT):
     return ndb.Key("Words", wordToTrans)
@@ -95,7 +100,7 @@ class MainPage(webapp2.RequestHandler):
     def get(self):
         clearExistingDB()
         self.response.out.write(MAIN_PAGE_HTML)
-        readFileToNdb() #read data.txt
+        #readFileToNdb() #read data.txt
 
     def post(self):
         userInputVal = self.request.get(u'userInput2', DEFAULT)
@@ -107,22 +112,6 @@ class MainPage(webapp2.RequestHandler):
 
         self.response.write('<b>%s</b> list.' % wom)
 
-"""
-    def readFileToNdb(filename):
-        f = open(filename, 'r')
-        lines = f.readlines()
-        for line in lines:
-            #print type(line)
-            tline = line.split(" : ") #: 으로 나누는 것과 ' : '으로 나누는 것은 dic이 되었을 때 결과값이 다르다.
-            key = tline[0]
-            escapeNvalue = tline[1][:(len(tline[1]) - 1)] #마지막 문자인 '\n'을 제거한다.
-            
-            wom = WOM(parent=makeKey(key))
-            wom.keyword = self.request.get(key)
-            wom.content = wom.content.append(self.request.get(escapeNvalue))
-            wom.put()
-            """
-
 def clearExistingDB():
     allwomqueries = WOM.query().fetch(9999, keys_only=True)
     #'_multi' 함수의 인자인 keys 를 만들기 위해서는 keys_only 옵션을 이용해서 entity가 아니라 key만 return 되도록 해야 한다.
@@ -131,7 +120,7 @@ def clearExistingDB():
 
 def readFileToNdb():
     key_list = []
-    f = open(DATA_FLIE, 'r')
+    f = open(DATA_FILE, 'r')
     lines = f.readlines()
     for line in lines:
         #print type(line)
@@ -139,7 +128,7 @@ def readFileToNdb():
         key = tline[0]
         #print key
         escapeNvalue = tline[1][:(len(tline[1]) - 1)] #마지막 문자인 '\n'을 제거한다.
-        #print escapeNvalue
+        print escapeNvalue
 
         wom = WOM(parent=makeKey(key))
         wom.keyword = key
@@ -156,7 +145,7 @@ class FillDB(webapp2.RequestHandler):
 
 def makeKeyList():
     key_list = []
-    f = open(DATA_FLIE, 'r')
+    f = open(DATA_FILE, 'r')
     lines = f.readlines()
     for line in lines:
         tline = line.split(" : ") #: 으로 나누는 것과 ' : '으로 나누는 것은 dic이 되었을 때 결과값이 다르다.
@@ -178,20 +167,16 @@ class FindDB(webapp2.RequestHandler):
         #print type(keys[0])
         toFind = self.request.get('searchingWord') #unicode
         toFindstr = toFind.encode('utf-8')
+        resultContent = []
 
         for key in keys:
             #print key
             womquery = WOM.query(WOM.keyword == key)
-            queryReturns = womquery.fetch(10)
-            if womquery:
-                for queryReturn in queryReturns:
-                    if queryReturn.content:
-                        tempvaluelist.append(queryReturn.content)
-
-            #print type(tempvaluelist[random.randint(0, len(tempvaluelist)-1)])
-
-            toFindstr = toFindstr.replace(key, tempvaluelist[random.randint(0, \
-                len(tempvaluelist)-1)].encode('utf-8'))
+            queryReturn = womquery.fetch(1)
+            resultContentList = queryReturn[0].content.split(' , ')
+            randomResult = resultContentList[random.randint(0, len(resultContentList)-1)]
+            randomResultStr = randomResult.encode('utf-8')
+            toFindstr = toFindstr.replace(key, randomResultStr)
             #print toFindstr
 
         self.response.write(toFindstr)
@@ -244,6 +229,7 @@ application = webapp2.WSGIApplication([
 	('/', MainPage),
 	('/test', SecondPage),
     ('/data', ViewDB),
-    ('/find', FindDB)
+    ('/find', FindDB),
+    ('/fillData', FillDB)
     #('/del', DelDB)
 	], debug=True)
