@@ -4,6 +4,7 @@ import cgi
 import urllib
 import webapp2
 import random
+import glob, os
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -49,7 +50,7 @@ SECOND_PAGE_HTML = """\
 <!DOCTYPE html>
 <html>
     <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
 
     </head>
 
@@ -81,7 +82,7 @@ DATA_PAGE_HTML = """\
 """
 
 DEFAULT = "hello"
-DATA_FILE = "datalist.txt"
+DATA_FILE = "data.txt"
 #data.txt의 마지막 줄에는 내용 없는 엔터가 필요하다. 마지막 줄 끝에 \n 이 입력되어야 하기 때문에.
 
 def makeKey(wordToTrans = DEFAULT):
@@ -155,31 +156,48 @@ def makeKeyList():
     f.close()
     return key_list
 
+def getFileNum(targetFolder, extension):
+    listOfFiles = glob.glob(targetFolder + '/*.' + extension)
+    return len(listOfFiles)
 
 
 class FindDB(webapp2.RequestHandler):
     def get(self):
-        #result = " "
-        tempvaluelist = []
-
+        imgPrinted = False
+        numOfmatch = 0;
         keys = makeKeyList()
         #print keys
-        #print type(keys[0])
         toFind = self.request.get('searchingWord') #unicode
         toFindstr = toFind.encode('utf-8')
-        resultContent = []
+        #print toFindstr
 
         for key in keys:
-            #print key
             womquery = WOM.query(WOM.keyword == key)
             queryReturn = womquery.fetch(1)
-            resultContentList = queryReturn[0].content.split(' , ')
-            randomResult = resultContentList[random.randint(0, len(resultContentList)-1)]
-            randomResultStr = randomResult.encode('utf-8')
-            toFindstr = toFindstr.replace(key, randomResultStr)
-            #print toFindstr
 
-        self.response.write(toFindstr)
+            if toFindstr.find(key) is not -1: #something matched
+                numOfmatch = numOfmatch + 1;
+                #print numOfmatch
+
+            if numOfmatch :
+                #print key
+                resultContentList = queryReturn[0].content.split(' , ')
+                randomResult = resultContentList[random.randint(0, len(resultContentList)-1)]
+                randomResultStr = randomResult.encode('utf-8')
+                toFindstr = toFindstr.replace(key, randomResultStr)
+                #print toFindstr
+            else :
+                if imgPrinted is False : #준비된 이미지를 랜덤하게 선택해서 보여준다.
+                    #print ("nothing matched!")
+                    numOfImgs = getFileNum('img', 'png')
+                    #print numOfImgs
+                    ranImgNum = random.randint(1, numOfImgs)
+                    self.response.write('<img src=/img/' + str(ranImgNum) + '.png />')
+                    imgPrinted = True
+
+        #print numOfmatch
+        if numOfmatch :
+            self.response.write(toFindstr)
 
 class ViewDB(webapp2.RequestHandler):
     def get(self):
@@ -220,9 +238,12 @@ class SecondPage(webapp2.RequestHandler):
             if transedWord.content:
                 self.response.write('keyword: %s / content: %s <br>' % (transedWord.keyword, transedWord.content))
 
-        self.response.write(SECOND_PAGE_HTML)
-        self.response.write('<img src=/img/test.png />')
+        numOfImgs = getFileNum('img', 'png')
+        #print numOfImgs
+        ranImgNum = random.randint(1, numOfImgs)
 
+        self.response.write(SECOND_PAGE_HTML)
+        self.response.write('<img src=/img/' + str(ranImgNum) + '.png />')
 
 
 application = webapp2.WSGIApplication([
