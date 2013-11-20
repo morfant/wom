@@ -79,7 +79,7 @@ DATA_PAGE_HTML = """\
 """
 
 DEFAULT = "hello"
-DATA_FILE = "data.txt"
+DATA_FILE = "data_s.txt"
 #data.txt의 마지막 줄에는 내용 없는 엔터가 필요하다. 마지막 줄 끝에 \n 이 입력되어야 하기 때문에.
 
 def makeKey(wordToTrans = DEFAULT):
@@ -111,7 +111,7 @@ class MainPage(webapp2.RequestHandler):
         self.response.write('<b>%s</b> list.' % wom)
 
 def clearExistingDB():
-    allwomqueries = WOM.query().fetch(9999, keys_only=True)
+    allwomqueries = WOM.query().fetch(9999, keys_only = True)
     #'_multi' 함수의 인자인 keys 를 만들기 위해서는 keys_only 옵션을 이용해서 entity가 아니라 key만 return 되도록 해야 한다.
     ndb.delete_multi(allwomqueries)
     ndb.get_context().clear_cache()
@@ -128,7 +128,7 @@ def readFileToNdb():
         escapeNvalue = tline[1][:(len(tline[1]) - 1)] #마지막 문자인 '\n'을 제거한다.
         #print escapeNvalue
 
-        wom = WOM(parent=makeKey(key))
+        wom = WOM(parent = makeKey(key))
         wom.keyword = key
         wom.content = escapeNvalue
         wom.put()
@@ -148,6 +148,7 @@ def makeKeyList():
     lines = f.readlines()
     for line in lines:
         tline = line.split(" : ") #: 으로 나누는 것과 ' : '으로 나누는 것은 dic이 되었을 때 결과값이 다르다.
+        # keySpace = tline[0] + " "
         key = tline[0]
         escapeNvalue = tline[1][:(len(tline[1]) - 1)] #마지막 문자인 '\n'을 제거한다.
         key_list.append(key) # make key list
@@ -161,43 +162,60 @@ def getFileNum(targetFolder, extension):
 
 class FindDB(webapp2.RequestHandler):
     def get(self):
+        toFindstrLists = []
         #os.system('say wait')
         #print sys.platform
         imgPrinted = False
-        numOfmatch = 0;
+        numOfmatch = 0
         keys = makeKeyList()
         #print keys
         toFind = self.request.get('searchingWord') #unicode
         toFindstr = toFind.encode('utf-8')
-        #print toFindstr
+        toFindstrList = toFindstr.split(' ')
+        for element in toFindstrList: #make a list that space attached to each end of word.
+            toFindstrLists.append(element + " ")
+        print ("toFindstrLists: %s" % toFindstrLists)
+        resultSentence = " "
 
-        for key in keys:
-            womquery = WOM.query(WOM.keyword == key)
-            queryReturn = womquery.fetch(1)
+        for word in toFindstrLists:
+            print ("\nFinding word: %s" % word)
+            numOfmatchInWord = 0;
 
-            if toFindstr.find(key) is not -1: #something matched
-                numOfmatch = numOfmatch + 1;
-                #print numOfmatch
+            for key in keys:
+                print ("key: %s" % key)
+                if word.find(key + " ") is not -1: #something matched
+                    print("Matched!")
+                    womquery = WOM.query(WOM.keyword == key)
+                    queryReturn = womquery.fetch(1)
+                    resultContentList = queryReturn[0].content.split(' _ ')
+                    randomResult = resultContentList[random.randint(0, len(resultContentList)-1)]
+                    randomResultStr = randomResult.encode('utf-8')
+                    print ("content: %s" % randomResultStr)
+                    #toFindstr = toFindstr.replace(key, randomResultStr)
+                    # resultSentence = resultSentence + toFindstr.replace(key, randomResultStr)
+                    resultSentence = resultSentence + randomResultStr
+                    print ("resultSentence", resultSentence)
 
-            if numOfmatch > 0:
-                #print key
-                resultContentList = queryReturn[0].content.split(' _ ')
-                randomResult = resultContentList[random.randint(0, len(resultContentList)-1)]
-                randomResultStr = randomResult.encode('utf-8')
-                toFindstr = toFindstr.replace(key, randomResultStr)
-                #print toFindstr
-            else :
-                if imgPrinted is False : #준비된 이미지를 랜덤하게 선택해서 보여준다.
-                    #print ("nothing matched!")
-                    numOfImgs = getFileNum('img', 'png')
-                    #print numOfImgs
-                    ranImgNum = random.randint(1, numOfImgs)
-                    self.response.write('<img src=/img/' + str(ranImgNum) + '.png />')
-                    imgPrinted = True
+                    numOfmatchInWord = numOfmatchInWord + 1
+                    numOfmatch = numOfmatch + 1
+
+            if numOfmatchInWord == 0 :
+                print("Nothing matched in one DB loop with %s" % word)
+                resultSentence = resultSentence + word
 
         #print numOfmatch
         if numOfmatch :
-            self.response.write(toFindstr)
+            #self.response.write(toFindstr)
+            self.response.write(resultSentence)
+        else :
+            print ("Nothing matched at all!\n")
+            if imgPrinted is False : #준비된 이미지를 랜덤하게 선택해서 보여준다.
+                #print ("nothing matched!")
+                numOfImgs = getFileNum('img', 'png')
+                #print numOfImgs
+                ranImgNum = random.randint(1, numOfImgs)
+                self.response.write('<img src=/img/' + str(ranImgNum) + '.png />')
+                imgPrinted = True
 
 class ViewDB(webapp2.RequestHandler):
     def get(self):
