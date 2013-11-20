@@ -14,34 +14,31 @@ MAIN_PAGE_HTML = """\
 <html>
     <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-
     </head>
 
     <body>
-        <form method="post" action="/test">
-        keyword:
-        <div id = "demo"><input type="text" size="100" name="userInput1"></div>
-        content:
-        <div id = "demo3"><input type="text" size="100" name="userInput2"></div>
-        <div id = "demo2"><input type='submit' value='input'></div>
-        </form>
+        <div align = "center", padding-top: 50px>
+            <form method="get" action="/find">
+                <div>
+                    <input type="text" size="100" name="searchingWord">
+                    <input type="submit" value="searchInDB">
+                </div>
+            </form>
 
-        <form method="get" action="/fillData">
-        <div><input type='submit' value='FillDB'></div>
-        </form>
+            <form method="get" action="/test">
+                <div>
+                    <input type = "submit" value="deleteDB">
+                </div>
+            </form>
 
-        <form method="get" action="/data">
-            <div>
-                <input type="submit" value="printDB">
-            </div>
-        </form>
+            <form method="get" action="/fillData">
+                <div>
+                    <input type = "submit" value="FillDB">
+                </div>
+            </form>
 
-        <form method="get" action="/find">
-            <div>
-                <input type="text" size="100" name="searchingWord">
-                <input type="submit" value="searchInDB">
-            </div>
-        </form>
+
+        </div>
     </body>
 </html>
 """
@@ -99,7 +96,7 @@ class MainPage(webapp2.RequestHandler):
     print (sys.getdefaultencoding())
 
     def get(self):
-        clearExistingDB()
+        #clearExistingDB()
         self.response.out.write(MAIN_PAGE_HTML)
         #readFileToNdb() #read data.txt
 
@@ -129,7 +126,7 @@ def readFileToNdb():
         key = tline[0]
         #print key
         escapeNvalue = tline[1][:(len(tline[1]) - 1)] #마지막 문자인 '\n'을 제거한다.
-        print escapeNvalue
+        #print escapeNvalue
 
         wom = WOM(parent=makeKey(key))
         wom.keyword = key
@@ -137,11 +134,12 @@ def readFileToNdb():
         wom.put()
         key_list.append(key) # make key list
     f.close()
-    print key_list
+    #print key_list
 
 
 class FillDB(webapp2.RequestHandler):
     def get(self):
+        clearExistingDB()
         readFileToNdb()
 
 def makeKeyList():
@@ -163,6 +161,8 @@ def getFileNum(targetFolder, extension):
 
 class FindDB(webapp2.RequestHandler):
     def get(self):
+        #os.system('say wait')
+        #print sys.platform
         imgPrinted = False
         numOfmatch = 0;
         keys = makeKeyList()
@@ -179,9 +179,9 @@ class FindDB(webapp2.RequestHandler):
                 numOfmatch = numOfmatch + 1;
                 #print numOfmatch
 
-            if numOfmatch :
+            if numOfmatch > 0:
                 #print key
-                resultContentList = queryReturn[0].content.split(' , ')
+                resultContentList = queryReturn[0].content.split(' _ ')
                 randomResult = resultContentList[random.randint(0, len(resultContentList)-1)]
                 randomResultStr = randomResult.encode('utf-8')
                 toFindstr = toFindstr.replace(key, randomResultStr)
@@ -201,7 +201,7 @@ class FindDB(webapp2.RequestHandler):
 
 class ViewDB(webapp2.RequestHandler):
     def get(self):
-        print key_list
+        #print key_list
         womquery = WOM.query().order(-WOM.date)
         queryReturns = womquery.fetch(20)
 
@@ -216,6 +216,10 @@ class ViewDB(webapp2.RequestHandler):
 
 
 class SecondPage(webapp2.RequestHandler):
+
+    def get(self):
+            clearExistingDB()
+
     
     def post(self):
 
