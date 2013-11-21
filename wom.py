@@ -10,6 +10,13 @@ import re
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
+#################################### MACRO ####################################
+DEFAULT = "hello"
+DATA_FILE = "data_s.txt"
+#data.txt의 마지막 줄에는 내용 없는 엔터가 필요하다. 마지막 줄 끝에 \n 이 입력되어야 하기 때문에.
+
+
+#################################### HTML ####################################
 MAIN_PAGE_HTML = """\
 <!DOCTYPE html>
 <html>
@@ -19,14 +26,14 @@ MAIN_PAGE_HTML = """\
 
     <body>
         <div align = "center", padding-top: 50px>
-            <form method="get" action="/find">
+            <form method="get" action="/findData">
                 <div>
                     <input type="text" size="100" name="searchingWord">
                     <input type="submit" value="searchInDB">
                 </div>
             </form>
 
-            <form method="get" action="/test">
+            <form method="get" action="/delData">
                 <div>
                     <input type = "submit" value="deleteDB">
                 </div>
@@ -44,7 +51,7 @@ MAIN_PAGE_HTML = """\
 </html>
 """
 
-SECOND_PAGE_HTML = """\
+DEL_PAGE_HTML = """\
 <!DOCTYPE html>
 <html>
     <head>
@@ -60,131 +67,27 @@ SECOND_PAGE_HTML = """\
 </html>
 """
 
-DATA_PAGE_HTML = """\
-<!DOCTYPE html>
-<html>
-    <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-
-    </head>
-
-    <body>
-        <form method="GET" action="/">
-            <div><input type='submit' value='RETURN'></div>
-        </form>
-        <form method="GET" action="/data">
-            <div><input type='submit' value='CLEARDB'></div>
-        </form>
-    </body>
-</html>
-"""
-
-DEFAULT = "hello"
-DATA_FILE = "data_s.txt"
-#data.txt의 마지막 줄에는 내용 없는 엔터가 필요하다. 마지막 줄 끝에 \n 이 입력되어야 하기 때문에.
-
-def makeKey(wordToTrans = DEFAULT):
-    return ndb.Key("Words", wordToTrans)
-
+#################################### NDB CLASS ####################################
 class WOM(ndb.Model):
     keyword = ndb.StringProperty(indexed=True)
     content = ndb.StringProperty(indexed=True)
+    language = ndb.StringProperty(indexed=True)
     date = ndb.DateTimeProperty(auto_now_add=True)
 
 
+#################################### PAGES ####################################
 class MainPage(webapp2.RequestHandler):
-    
-    print (sys.getdefaultencoding())
-
+    # print (sys.getdefaultencoding())
     def get(self):
-        #clearExistingDB()
         self.response.out.write(MAIN_PAGE_HTML)
-        #readFileToNdb() #read data.txt
 
-    def post(self):
-        userInputVal = self.request.get(u'userInput2', DEFAULT)
-        print("userInputVal: %s %s %s" % (userInputVal, type(userInputVal), unicode(userInputVal,'utf-8')))
-        wom = WOM(parent=makeKey(unicode(userInputVal,'utf-8')))
-        wom.content = self.request.get('userInput2')
-        wom.put()
-        self.response.write('<b>%s</b> puted.' % wom.content)
-
-        self.response.write('<b>%s</b> list.' % wom)
-
-def clearExistingDB():
-    allwomqueries = WOM.query().fetch(9999, keys_only = True)
-    #'_multi' 함수의 인자인 keys 를 만들기 위해서는 keys_only 옵션을 이용해서 entity가 아니라 key만 return 되도록 해야 한다.
-    ndb.delete_multi(allwomqueries)
-    ndb.get_context().clear_cache()
-
-def readFileToNdb():
-    key_list = []
-    f = open(DATA_FILE, 'r')
-    lines = f.readlines()
-    for line in lines:
-        #print type(line)
-        tline = line.split(" : ") #: 으로 나누는 것과 ' : '으로 나누는 것은 dic이 되었을 때 결과값이 다르다.
-        key = tline[0]
-        #print key
-        escapeNvalue = tline[1][:(len(tline[1]) - 1)] #마지막 문자인 '\n'을 제거한다.
-        #print escapeNvalue
-
-        wom = WOM(parent = makeKey(key))
-        wom.keyword = key
-        wom.content = escapeNvalue
-        wom.put()
-        key_list.append(key) # make key list
-    f.close()
-    #print key_list
-
+class DelDB(webapp2.RequestHandler):
+    def get(self):
+            clearExistingDB()
 
 class FillDB(webapp2.RequestHandler):
     def get(self):
-        clearExistingDB()
         readFileToNdb()
-
-def makeKeyList():
-    key_list = []
-    f = open(DATA_FILE, 'r')
-    lines = f.readlines()
-    for line in lines:
-        tline = line.split(" : ") #: 으로 나누는 것과 ' : '으로 나누는 것은 dic이 되었을 때 결과값이 다르다.
-        # keySpace = tline[0] + " "
-        key = tline[0]
-        escapeNvalue = tline[1][:(len(tline[1]) - 1)] #마지막 문자인 '\n'을 제거한다.
-        key_list.append(key) # make key list
-    f.close()
-    return key_list
-
-def getFileNum(targetFolder, extension):
-    listOfFiles = glob.glob(targetFolder + '/*.' + extension)
-    return len(listOfFiles)
-
-
-
-    # for key in keys:
-    #     womquery = WOM.query(WOM.keyword == key)
-    #     queryReturn = womquery.fetch(1)
-
-    #     if toFindstr.find(key) is not -1: #something matched
-    #     numOfmatch = numOfmatch + 1;
-    #     #print numOfmatch
-
-    #     if numOfmatch > 0:
-    #               #print key
-    #               resultContentList = queryReturn[0].content.split(' _ ')
-    #               randomResult = resultContentList[random.randint(0, len(resultContentList)-1)]
-    #               randomResultStr = randomResult.encode('utf-8')
-    #               toFindstr = toFindstr.replace(key, randomResultStr)
-    #               #print toFindstr
-    #           else :
-    #           if imgPrinted is False : #준비된 이미지를 랜덤하게 선택해서 보여준다.
-    #           #print ("nothing matched!")
-    #           numOfImgs = getFileNum('img', 'png')
-    #           #print numOfImgs
-    #           ranImgNum = random.randint(1, numOfImgs)
-    #           self.response.write('<img src=/img/' + str(ranImgNum) + '.png />')
-    #           imgPrinted = True
 
 class FindDB(webapp2.RequestHandler):
     def get(self):
@@ -204,43 +107,37 @@ class FindDB(webapp2.RequestHandler):
         print ("toFindstrLists: %s" % toFindstrLists)
         resultSentence = " "
 
-        for word in toFindstrLists:
+        for word in toFindstrLists: #split by space
             print ("\nFinding word: %s" % word)
-            print ("Type of Finding word: %s" % type(word))
-            # tu = word.decode('utf-8')
-            # print ("Type of tu %s" % type(tu))
-            #print tu
 
             numOfmatchInWord = 0;
 
             for key in keys:
                 print ("key: %s" % key)
-                isKorean = bool(re.search(r'(([\x7f-\xfe])+)', word))
-                #isKorean = bool(re.search(r'', word))
-                print("word in KOREAN %s" % word) 
-                print("isKorean: %s" % isKorean)
-
-                if isKorean : # KOREAN word
+                if isKorean(word) :
+                    print("isKorean: %s" % isKorean(word))
                     if word.find(key) is not -1: #something matched in KOREAN
                         print("Matched in KOREAN!")
-                        womquery = WOM.query(WOM.keyword == key)
+                        womquery = WOM.query(WOM.language == "KOR", WOM.keyword == key)
                         queryReturn = womquery.fetch(1)
+                        print queryReturn
                         resultContentList = queryReturn[0].content.split(' _ ')
                         randomResult = resultContentList[random.randint(0, len(resultContentList)-1)]
                         randomResultStr = randomResult.encode('utf-8')
                         print ("content_K: %s" % randomResultStr)
                         #toFindstr = toFindstr.replace(key, randomResultStr)
-                        # resultSentence = resultSentence + toFindstr.replace(key, randomResultStr)
-                        resultSentence = resultSentence + " " + randomResultStr
+                        resultSentence = resultSentence + word.replace(key, randomResultStr)
+                        #resultSentence = resultSentence + " " + randomResultStr
                         print ("resultSentence", resultSentence)
 
                         numOfmatchInWord = numOfmatchInWord + 1
                         numOfmatch = numOfmatch + 1
+                        break
 
                 else : # ENGLISH word
                     if word.find(key + " ") is not -1: #something matched in ENGLISH
                         print("Matched in ENGLISH!")
-                        womquery = WOM.query(WOM.keyword == key)
+                        womquery = WOM.query(WOM.language == "ENG", WOM.keyword == key)
                         queryReturn = womquery.fetch(1)
                         resultContentList = queryReturn[0].content.split(' _ ')
                         randomResult = resultContentList[random.randint(0, len(resultContentList)-1)]
@@ -253,6 +150,7 @@ class FindDB(webapp2.RequestHandler):
 
                         numOfmatchInWord = numOfmatchInWord + 1
                         numOfmatch = numOfmatch + 1
+                        break
 
             if numOfmatchInWord == 0 :
                 print("Nothing matched in one DB loop with %s" % word)
@@ -272,62 +170,71 @@ class FindDB(webapp2.RequestHandler):
                 self.response.write('<img src=/img/' + str(ranImgNum) + '.png />')
                 imgPrinted = True
 
-class ViewDB(webapp2.RequestHandler):
-    def get(self):
-        #print key_list
-        womquery = WOM.query().order(-WOM.date)
-        queryReturns = womquery.fetch(20)
-
-        #print transedWords        
-        self.response.write('keyword / content<br>')
-        for queryReturn in queryReturns:
-            if queryReturn.content:
-                self.response.write(' %s / %s / %s <br>' % \
-                    (queryReturn.keyword, queryReturn.content, queryReturn.date))
-
-        self.response.write(DATA_PAGE_HTML)
 
 
-class SecondPage(webapp2.RequestHandler):
+#################################### FUNCTIONS ####################################
+def makeKey(wordToTrans = DEFAULT):
+    return ndb.Key("Words", wordToTrans)
 
-    def get(self):
-            clearExistingDB()
+def clearExistingDB():
+    allwomqueries = WOM.query().fetch(9999, keys_only = True)
+    #'_multi' 함수의 인자인 keys 를 만들기 위해서는 keys_only 옵션을 이용해서 entity가 아니라 key만 return 되도록 해야 한다.
+    ndb.delete_multi(allwomqueries)
+    ndb.get_context().clear_cache()
 
-    
-    def post(self):
+def readFileToNdb():
+    key_list = []
+    f = open(DATA_FILE, 'r')
+    lines = f.readlines()
+    for line in lines:
+        #print type(line)
+        tline = line.split(" : ") #: 으로 나누는 것과 ' : '으로 나누는 것은 dic이 되었을 때 결과값이 다르다.
+        key = tline[0]
+        #print key
+        escapeNvalue = tline[1][:(len(tline[1]) - 1)] #마지막 문자인 '\n'을 제거한다.
+        #print escapeNvalue
 
-        #print("keyword : %s" % self.request.get('userInput1')) #한글을 입력하면 문제를 일으킨다
-        #print("content : %s" % self.request.get('userInput2'))
-        wordToTrans = self.request.get('userInput1', DEFAULT)
-        #print("2: %s" % wordToTrans)
-        #print (wordToTrans.encode('utf-8'))
-        wom = WOM(parent=makeKey(wordToTrans))
-        wom.keyword = self.request.get('userInput1')
-        wom.content = self.request.get('userInput2')
-        wom.put()
+        if isKorean(key) :
+            wom = WOM(parent = makeKey(key))
+            wom.keyword = key
+            wom.content = escapeNvalue
+            wom.language = "KOR"
+            wom.put()
 
-        #transQuery = WOM.query(ancestor=makeKey(wordToTrans)).order(-WOM.date)
-        transQuery = WOM.query().order(-WOM.date)
-        transedWords = transQuery.fetch(10)
+        else :
+            wom = WOM(parent = makeKey(key))
+            wom.keyword = key
+            wom.content = escapeNvalue
+            wom.language = "ENG"
+            wom.put()
+    f.close()
 
-        #print transedWords        
-        for transedWord in transedWords:
-            if transedWord.content:
-                self.response.write('keyword: %s / content: %s <br>' % (transedWord.keyword, transedWord.content))
+def isKorean(word):
+    return bool(re.search(r'(([\x7f-\xfe])+)', word))
 
-        numOfImgs = getFileNum('img', 'png')
-        #print numOfImgs
-        ranImgNum = random.randint(1, numOfImgs)
+def makeKeyList():
+    womquery = WOM.query().order(-WOM.keyword)
+    key_list = []
+    for wom in womquery :
+        key = wom.keyword.encode('utf-8')
+        #print key
+        key_list.append(key) # make key list
+    return key_list
 
-        self.response.write(SECOND_PAGE_HTML)
-        self.response.write('<img src=/img/' + str(ranImgNum) + '.png />')
+def getFileNum(targetFolder, extension):
+    listOfFiles = glob.glob(targetFolder + '/*.' + extension)
+    return len(listOfFiles)
+
+
+
+
+
 
 
 application = webapp2.WSGIApplication([
-	('/', MainPage),
-	('/test', SecondPage),
-    ('/data', ViewDB),
-    ('/find', FindDB),
-    ('/fillData', FillDB)
+    ('/', MainPage),
+    ('/delData', DelDB),
+    ('/fillData', FillDB),
+    ('/findData', FindDB)
     #('/del', DelDB)
-	], debug=True)
+    ], debug=True)

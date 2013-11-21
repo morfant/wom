@@ -12,6 +12,11 @@ indexes:
 
 - kind: WOM
   properties:
+  - name: __key__
+    direction: desc
+
+- kind: WOM
+  properties:
   - name: keyword
   - name: date
     direction: desc
