@@ -5,6 +5,7 @@ import urllib
 import webapp2
 import random
 import glob, os
+import re
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -160,12 +161,38 @@ def getFileNum(targetFolder, extension):
     return len(listOfFiles)
 
 
+
+    # for key in keys:
+    #     womquery = WOM.query(WOM.keyword == key)
+    #     queryReturn = womquery.fetch(1)
+
+    #     if toFindstr.find(key) is not -1: #something matched
+    #     numOfmatch = numOfmatch + 1;
+    #     #print numOfmatch
+
+    #     if numOfmatch > 0:
+    #               #print key
+    #               resultContentList = queryReturn[0].content.split(' _ ')
+    #               randomResult = resultContentList[random.randint(0, len(resultContentList)-1)]
+    #               randomResultStr = randomResult.encode('utf-8')
+    #               toFindstr = toFindstr.replace(key, randomResultStr)
+    #               #print toFindstr
+    #           else :
+    #           if imgPrinted is False : #준비된 이미지를 랜덤하게 선택해서 보여준다.
+    #           #print ("nothing matched!")
+    #           numOfImgs = getFileNum('img', 'png')
+    #           #print numOfImgs
+    #           ranImgNum = random.randint(1, numOfImgs)
+    #           self.response.write('<img src=/img/' + str(ranImgNum) + '.png />')
+    #           imgPrinted = True
+
 class FindDB(webapp2.RequestHandler):
     def get(self):
         toFindstrLists = []
         #os.system('say wait')
         #print sys.platform
         imgPrinted = False
+        toFindstr = ' '
         numOfmatch = 0
         keys = makeKeyList()
         #print keys
@@ -179,29 +206,57 @@ class FindDB(webapp2.RequestHandler):
 
         for word in toFindstrLists:
             print ("\nFinding word: %s" % word)
+            print ("Type of Finding word: %s" % type(word))
+            # tu = word.decode('utf-8')
+            # print ("Type of tu %s" % type(tu))
+            #print tu
+
             numOfmatchInWord = 0;
 
             for key in keys:
                 print ("key: %s" % key)
-                if word.find(key + " ") is not -1: #something matched
-                    print("Matched!")
-                    womquery = WOM.query(WOM.keyword == key)
-                    queryReturn = womquery.fetch(1)
-                    resultContentList = queryReturn[0].content.split(' _ ')
-                    randomResult = resultContentList[random.randint(0, len(resultContentList)-1)]
-                    randomResultStr = randomResult.encode('utf-8')
-                    print ("content: %s" % randomResultStr)
-                    #toFindstr = toFindstr.replace(key, randomResultStr)
-                    # resultSentence = resultSentence + toFindstr.replace(key, randomResultStr)
-                    resultSentence = resultSentence + randomResultStr
-                    print ("resultSentence", resultSentence)
+                isKorean = bool(re.search(r'(([\x7f-\xfe])+)', word))
+                #isKorean = bool(re.search(r'', word))
+                print("word in KOREAN %s" % word) 
+                print("isKorean: %s" % isKorean)
 
-                    numOfmatchInWord = numOfmatchInWord + 1
-                    numOfmatch = numOfmatch + 1
+                if isKorean : # KOREAN word
+                    if word.find(key) is not -1: #something matched in KOREAN
+                        print("Matched in KOREAN!")
+                        womquery = WOM.query(WOM.keyword == key)
+                        queryReturn = womquery.fetch(1)
+                        resultContentList = queryReturn[0].content.split(' _ ')
+                        randomResult = resultContentList[random.randint(0, len(resultContentList)-1)]
+                        randomResultStr = randomResult.encode('utf-8')
+                        print ("content_K: %s" % randomResultStr)
+                        #toFindstr = toFindstr.replace(key, randomResultStr)
+                        # resultSentence = resultSentence + toFindstr.replace(key, randomResultStr)
+                        resultSentence = resultSentence + " " + randomResultStr
+                        print ("resultSentence", resultSentence)
+
+                        numOfmatchInWord = numOfmatchInWord + 1
+                        numOfmatch = numOfmatch + 1
+
+                else : # ENGLISH word
+                    if word.find(key + " ") is not -1: #something matched in ENGLISH
+                        print("Matched in ENGLISH!")
+                        womquery = WOM.query(WOM.keyword == key)
+                        queryReturn = womquery.fetch(1)
+                        resultContentList = queryReturn[0].content.split(' _ ')
+                        randomResult = resultContentList[random.randint(0, len(resultContentList)-1)]
+                        randomResultStr = randomResult.encode('utf-8')
+                        print ("content_E: %s" % randomResultStr)
+                        #toFindstr = toFindstr.replace(key, randomResultStr)
+                        # resultSentence = resultSentence + toFindstr.replace(key, randomResultStr)
+                        resultSentence = resultSentence + " " + randomResultStr
+                        print ("resultSentence", resultSentence)
+
+                        numOfmatchInWord = numOfmatchInWord + 1
+                        numOfmatch = numOfmatch + 1
 
             if numOfmatchInWord == 0 :
                 print("Nothing matched in one DB loop with %s" % word)
-                resultSentence = resultSentence + word
+                resultSentence = resultSentence + " " + word
 
         #print numOfmatch
         if numOfmatch :
