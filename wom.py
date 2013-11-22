@@ -21,76 +21,93 @@ MAIN_PAGE_HTML = """\
 <!DOCTYPE html>
 <html>
     <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+
+        <style type="text/css">
+            body {margin-top: 50px;}
+        </style>
+
     </head>
 
     <body>
-        <div align = "center", padding-top: 50px>
+        <div align="center">
             <form method="get" action="/findData">
                 <div>
                     <input type="text" size="100" name="searchingWord">
-                    <input type="submit" value="searchInDB">
+                    <input type="submit" value="Translate!">
                 </div>
             </form>
 
             <form method="get" action="/delData">
                 <div>
-                    <input type = "submit" value="deleteDB">
+                    <input type="submit" value="deleteDB">
                 </div>
             </form>
 
             <form method="get" action="/fillData">
                 <div>
-                    <input type = "submit" value="FillDB">
+                    <input type="submit" value="FillDB">
                 </div>
             </form>
-
-
         </div>
     </body>
 </html>
 """
 
-DEL_PAGE_HTML = """\
+FIND_PAGE_HTML = """\
 <!DOCTYPE html>
 <html>
     <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+
+    <style type="text/css">
+        body {margin-top: 50px;}
+    </style>
 
     </head>
-
     <body>
-        <form method="GET" action="/">
-            <div id = "demo2"><input type='submit' value='RETURN'></div>
-        </form>
+        <div align="center">
+            <form method="get" action="/">
+                <div style="margin-top: 30px">
+                    <input type="submit" value="Back">
+                </div>
+            </form>
+        </div>
     </body>
 </html>
 """
 
+
 #################################### NDB CLASS ####################################
-class WOM(ndb.Model):
+class WOM(ndb.Model) :
     keyword = ndb.StringProperty(indexed=True)
     content = ndb.StringProperty(indexed=True)
-    language = ndb.StringProperty(indexed=True)
+    date = ndb.DateTimeProperty(auto_now_add=True)
+
+class WOM_ENG(ndb.Model) :
+    keyword = ndb.StringProperty(indexed=True)
+    content = ndb.StringProperty(indexed=True)
     date = ndb.DateTimeProperty(auto_now_add=True)
 
 
 #################################### PAGES ####################################
-class MainPage(webapp2.RequestHandler):
+class MainPage(webapp2.RequestHandler) :
     # print (sys.getdefaultencoding())
-    def get(self):
+    def get(self) :
         self.response.out.write(MAIN_PAGE_HTML)
 
-class DelDB(webapp2.RequestHandler):
-    def get(self):
-            clearExistingDB()
+class DelDB(webapp2.RequestHandler) :
+    def get(self) :
+        clearExistingDB()
+        self.response.write("DB is deleted.")
 
-class FillDB(webapp2.RequestHandler):
-    def get(self):
+class FillDB(webapp2.RequestHandler) :
+    def get(self) :
         readFileToNdb()
+        self.response.write("DB is filled.")
 
-class FindDB(webapp2.RequestHandler):
-    def get(self):
+class FindDB(webapp2.RequestHandler) :
+    def get(self) :
         toFindstrLists = []
         #os.system('say wait')
         #print sys.platform
@@ -98,6 +115,7 @@ class FindDB(webapp2.RequestHandler):
         toFindstr = ' '
         numOfmatch = 0
         keys = makeKeyList()
+        keys_ENG = makeKeyList_ENG()
         #print keys
         toFind = self.request.get('searchingWord') #unicode
         toFindstr = toFind.encode('utf-8')
@@ -112,39 +130,27 @@ class FindDB(webapp2.RequestHandler):
 
             numOfmatchInWord = 0;
 
-            for key in keys:
-                print ("key: %s" % key)
-                if isKorean(word) :
+            if isKorean(word) :
+                for key in keys :
+                    print ("key: %s" % key)
                     print("isKorean: %s" % isKorean(word))
                     if word.find(key) is not -1: #something matched in KOREAN
                         print("Matched in KOREAN!")
-                        womquery = WOM.query(WOM.language == "KOR", WOM.keyword == key)
-                        queryReturn = womquery.fetch(1)
-                        print queryReturn
-                        resultContentList = queryReturn[0].content.split(' _ ')
-                        randomResult = resultContentList[random.randint(0, len(resultContentList)-1)]
-                        randomResultStr = randomResult.encode('utf-8')
+                        randomResultStr = randDBOut(WOM, key)
                         print ("content_K: %s" % randomResultStr)
-                        #toFindstr = toFindstr.replace(key, randomResultStr)
                         resultSentence = resultSentence + word.replace(key, randomResultStr)
-                        #resultSentence = resultSentence + " " + randomResultStr
                         print ("resultSentence", resultSentence)
 
                         numOfmatchInWord = numOfmatchInWord + 1
                         numOfmatch = numOfmatch + 1
                         break
 
-                else : # ENGLISH word
+            else :
+                for key in keys_ENG :
                     if word.find(key + " ") is not -1: #something matched in ENGLISH
                         print("Matched in ENGLISH!")
-                        womquery = WOM.query(WOM.language == "ENG", WOM.keyword == key)
-                        queryReturn = womquery.fetch(1)
-                        resultContentList = queryReturn[0].content.split(' _ ')
-                        randomResult = resultContentList[random.randint(0, len(resultContentList)-1)]
-                        randomResultStr = randomResult.encode('utf-8')
+                        randomResultStr = randDBOut(WOM_ENG, key)
                         print ("content_E: %s" % randomResultStr)
-                        #toFindstr = toFindstr.replace(key, randomResultStr)
-                        # resultSentence = resultSentence + toFindstr.replace(key, randomResultStr)
                         resultSentence = resultSentence + " " + randomResultStr
                         print ("resultSentence", resultSentence)
 
@@ -156,33 +162,59 @@ class FindDB(webapp2.RequestHandler):
                 print("Nothing matched in one DB loop with %s" % word)
                 resultSentence = resultSentence + " " + word
 
-        #print numOfmatch
         if numOfmatch :
-            #self.response.write(toFindstr)
-            self.response.write(resultSentence)
+            self.response.write('<div align = "center", padding-top: 50px>' + resultSentence + '</div>')
         else :
             print ("Nothing matched at all!\n")
-            if imgPrinted is False : #준비된 이미지를 랜덤하게 선택해서 보여준다.
-                #print ("nothing matched!")
-                numOfImgs = getFileNum('img', 'png')
-                #print numOfImgs
-                ranImgNum = random.randint(1, numOfImgs)
-                self.response.write('<img src=/img/' + str(ranImgNum) + '.png />')
-                imgPrinted = True
+            if coin() == 1 : #random DB out
+                if coin() == 1 : #for korean
+                    randomKeyIdx = random.randint(1, len(keys) - 1)
+                    resultSentence = randDBOut(WOM, keys[randomKeyIdx])
+                    self.response.write('<div align = "center", padding-top: 50px>' + resultSentence + '</div>')
+
+                else : #for Eng
+                    randomKeyIdx = random.randint(1, len(keys_ENG) - 1)
+                    resultSentence = randDBOut(WOM_ENG, keys_ENG[randomKeyIdx])
+                    self.response.write('<div align = "center", padding-top: 50px>' + resultSentence + '</div>')
+
+            else : # random Img out
+                if imgPrinted is False : #준비된 이미지를 랜덤하게 선택해서 보여준다.
+                    numOfImgs = getFileNum('img', 'png')
+                    ranImgNum = random.randint(1, numOfImgs)
+                    self.response.write('<div align = "center", padding-top: 100px>\
+                        <img src=/img/' + str(ranImgNum) + '.png height = "400" width = "400"/></div>')
+                    imgPrinted = True
+
+        self.response.out.write(FIND_PAGE_HTML)
+
 
 
 
 #################################### FUNCTIONS ####################################
-def makeKey(wordToTrans = DEFAULT):
+def randDBOut(dataBase, matchingWord) :
+    womquery = dataBase.query(dataBase.keyword == matchingWord)
+    queryReturn = womquery.fetch(1)
+    resultContentList = queryReturn[0].content.split(' _ ')
+    randomResult = resultContentList[random.randint(0, len(resultContentList) - 1)]
+    randomResultStr = randomResult.encode('utf-8')
+    return randomResultStr
+
+def coin() :
+    return random.randint(1, 2)
+
+def makeKey(wordToTrans = DEFAULT) :
     return ndb.Key("Words", wordToTrans)
 
-def clearExistingDB():
+def clearExistingDB() :
     allwomqueries = WOM.query().fetch(9999, keys_only = True)
+    allwomqueries_ENG = WOM_ENG.query().fetch(9999, keys_only = True)
     #'_multi' 함수의 인자인 keys 를 만들기 위해서는 keys_only 옵션을 이용해서 entity가 아니라 key만 return 되도록 해야 한다.
     ndb.delete_multi(allwomqueries)
+    ndb.delete_multi(allwomqueries_ENG)
     ndb.get_context().clear_cache()
 
-def readFileToNdb():
+
+def readFileToNdb() :
     key_list = []
     f = open(DATA_FILE, 'r')
     lines = f.readlines()
@@ -198,21 +230,22 @@ def readFileToNdb():
             wom = WOM(parent = makeKey(key))
             wom.keyword = key
             wom.content = escapeNvalue
-            wom.language = "KOR"
             wom.put()
 
         else :
-            wom = WOM(parent = makeKey(key))
+            wom = WOM_ENG(parent = makeKey(key))
             wom.keyword = key
             wom.content = escapeNvalue
-            wom.language = "ENG"
             wom.put()
     f.close()
 
-def isKorean(word):
+
+#정규표현식을 이용하여 한글이 포함되어 있는지를 판단한다.
+def isKorean(word) :
     return bool(re.search(r'(([\x7f-\xfe])+)', word))
 
-def makeKeyList():
+#긴 단어부터, 뒷 철자부터 정열된 keyList 를 만든다.
+def makeKeyList() :
     womquery = WOM.query().order(-WOM.keyword)
     key_list = []
     for wom in womquery :
@@ -221,13 +254,19 @@ def makeKeyList():
         key_list.append(key) # make key list
     return key_list
 
-def getFileNum(targetFolder, extension):
+def makeKeyList_ENG() :
+    womquery = WOM_ENG.query().order(-WOM_ENG.keyword)
+    key_list = []
+    for wom in womquery :
+        key = wom.keyword.encode('utf-8')
+        #print key
+        key_list.append(key) # make key list
+    return key_list
+
+#targetFolder에 들어있는 특정 확장자 파일의 갯수를 돌려준다.
+def getFileNum(targetFolder, extension) :
     listOfFiles = glob.glob(targetFolder + '/*.' + extension)
     return len(listOfFiles)
-
-
-
-
 
 
 
