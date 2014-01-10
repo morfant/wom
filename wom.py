@@ -12,7 +12,7 @@ from google.appengine.ext import ndb
 
 #################################### MACRO ####################################
 DEFAULT = "hello"
-DATA_FILE = "data_s.txt"
+DATA_FILE = "data.txt"
 #data.txt의 마지막 줄에는 내용 없는 엔터가 필요하다. 마지막 줄 끝에 \n 이 입력되어야 하기 때문에.
 
 
@@ -37,7 +37,7 @@ MAIN_PAGE_HTML = """\
                     <input type="submit" value="Translate!">
                 </div>
             </form>
-
+<!-- 
             <form method="get" action="/delData">
                 <div>
                     <input type="submit" value="deleteDB">
@@ -49,6 +49,7 @@ MAIN_PAGE_HTML = """\
                     <input type="submit" value="FillDB">
                 </div>
             </form>
+-->
         </div>
     </body>
 </html>
@@ -103,6 +104,7 @@ class DelDB(webapp2.RequestHandler) :
 
 class FillDB(webapp2.RequestHandler) :
     def get(self) :
+        clearExistingDB()
         readFileToNdb()
         self.response.write("DB is filled.")
 
@@ -167,21 +169,28 @@ class FindDB(webapp2.RequestHandler) :
         else :
             print ("Nothing matched at all!\n")
             if coin() == 1 : #random DB out
+                print ("situation 1\n")
                 if coin() == 1 : #for korean
+                    print ("situation 1 - 1\n")
                     randomKeyIdx = random.randint(1, len(keys) - 1)
                     resultSentence = randDBOut(WOM, keys[randomKeyIdx])
-                    self.response.write('<div align = "center", padding-top: 50px>' + resultSentence + '</div>')
+                    self.response.write('<div align = "center", padding-top: 50px>' \
+                        + resultSentence + '</div>')
 
                 else : #for Eng
+                    print ("situation 1 - 2\n")
                     randomKeyIdx = random.randint(1, len(keys_ENG) - 1)
                     resultSentence = randDBOut(WOM_ENG, keys_ENG[randomKeyIdx])
-                    self.response.write('<div align = "center", padding-top: 50px>' + resultSentence + '</div>')
+                    self.response.write('<div align = "center", padding-top: 50px>' \
+                        + resultSentence + '</div>')
 
             else : # random Img out
                 if imgPrinted is False : #준비된 이미지를 랜덤하게 선택해서 보여준다.
+                    print ("situation 2\n")
                     numOfImgs = getFileNum('img', 'png')
-                    ranImgNum = random.randint(1, numOfImgs)
-                    self.response.write('<div align = "center", padding-top: 100px>\
+                    #print("Num of img: %s" % numOfImgs)
+                    ranImgNum = random.randint(1, 34)
+                    self.response.out.write('<div align = "center", padding-top: 100px>\
                         <img src=/img/' + str(ranImgNum) + '.png height = "400" width = "400"/></div>')
                     imgPrinted = True
 
@@ -264,6 +273,7 @@ def makeKeyList_ENG() :
     return key_list
 
 #targetFolder에 들어있는 특정 확장자 파일의 갯수를 돌려준다.
+#Not using at online version yet. 
 def getFileNum(targetFolder, extension) :
     listOfFiles = glob.glob(targetFolder + '/*.' + extension)
     return len(listOfFiles)
