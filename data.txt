@@ -21,7 +21,6 @@ was : Can you imagine what it was like?
 registered : I'm sorry, ma'am. We have no one by the name of Mr. King registered at this hotel
 accordance : Friend says, the traffic authority has to be satisfied in accordance with the Bill
 with : eat 2 more times ending with cheeses
-travel : Could you stop by the travel agency on the way back home from work?
 promotion : But Steve turned down the promotion
 law : We were scandalized by the change in law
 date : What's your last name and date of travel?
@@ -47,7 +46,6 @@ media : That doesn't mean he is any less media savvy
 kit : Don't worry. I have my repair kit with me 
 requested : Why has Rhonda Miller requested a leave of absence?
  media : That doesn't mean he is any less media savvy
-kit : Don't worry. I have my repair kit with me 
 received : Our product received a poor reception in our test market: 
 comments : He casually threw in a few comments 
 fax : The telephone and fax numbers are switched
@@ -61,7 +59,6 @@ to : The defendant decided to bring the case to the appellate court
 fax : The telephone and fax numbers are switched 
 from : He has decided to secede from the association
 phone : Call toll-free to order by phone. 24 hours a day, 7 days a week
-date : What's your last name and date of travel?
 page : How much does it cost to Xerox one page?
 s : About 1/2 hour before serving time, add fruit (s)
 certificate : I received a free certificate for a cheese burger at McDonald today
@@ -71,7 +68,6 @@ business : The pace of business here is febrile
 registered : Such marriages are hidden from friends and family and not registered with authorities
 no. : Please let me know soon whether it is yes or no.
 name : Perhaps the king of name changers is Prince
-of : I left in a brace of shakes
 resident : She is resident at his house
 ID : The new ID card works just like a transportation card 
 address : Unfortunately, he had forgotten to inform the post office of his change of address 
@@ -119,22 +115,15 @@ in : Put in a pretty glass bowl
 following : Which of the following is the most expensive to mail? 
 named : He was named Slow by his people when he was young 
 school : A new school year began today
-date : Can you move the validity date ahead one month? 
-certificate : You have chosen to install a certificate from a response file
-of : The teaching of the school is in chime with the thought of the founder
 the : The man was about to be on the pounce
 facts : The news checks out with the facts in every detail
 concerning : I was impressed by the speaker's profound insight concerning his topic
-the : The man was about to be on the pounce
-facts : The news checks out with the facts in every detail
 entry : No admittance except on business. or No unauthorized entry allowed
 & : On the other hand, I do not often use the '&'
 exit : Can we exit the plane during that time?
-No. : No. I was just about to
 name : Mary always tries to impress people by name-dropping
 sex : In the contemporary dance field, the sex thing is quite balanced, quite equal	
 of : The teaching of the school is in chime with the thought of the founder
-birth : Little is known about his birth and antecedents	
 nationality : Please write down your name, nationality, and passport number on this card
 passport : My passport expires at the end of the year
 presentation : I'm hard at work on my next presentation 
@@ -156,7 +145,6 @@ EPP : The EPP is a self-management programme for people with long-term health co
 Calculation : A Study on the Simplified Energy Calculation Method of Apartment Houses
 Overview : Overview of Recent Developments of Double-Skin Facade System
 of : There was not much of a breeze
-transportation : The landslip blocked all the transportation facilities
 options : Pick from different options to customize your Help and Support Center experience
 carpooling : I've been getting up at 6:00 and meeting a friend at 7:15 and carpooling in
 vanpooling : Psychological benefits from vanpooling and group composition  
@@ -176,14 +164,11 @@ personal : It is the process of progressively realizing your personal goals
 data : Conversion failed because the data value overflowed the data type used by the provider
 position : I hope we can find somebody to fill the secretarial position soon			
 name : Here lies one whose name was writ in water
-in : How much is it in the back?
 full : The farmer hauled away a full load of hay
-resident : She is resident at his house
 I.D : I've forgotten my I.D It must be in my other suit
 No. : No. I was just about to	
 address : For this site, you must enter your e-mail address as the password
 period : It's time to put a period to the matter
-of : The use of puppets dates back thousands of years
 rest : He splashed his boots at the rest room
 permission : Please do not open the box without my permission 
 Certificate : If you use your gift certificate for something worth more than 60 percent of its face value, you'll be given the remaining change in cash
@@ -197,7 +182,6 @@ Section : I'll place an ad in the Help Wanted section of the newspaper
 Position : The sea horse swims in an upright position
 Name : The username is not valid. Enter a valid username
 in : How much is it in the back?
-Full : He enjoys driving in the highway at full speed
 Date : You can write the year after the date
 of : Most of the world uses the metric system of measurement
 Birth : But these bonuses appear to have little effect on the birth rates
@@ -243,8 +227,6 @@ in : There is no one who can match him in his ability in English
 full : As usual, she looked fresh and full of energy	
 gender : This is not split by gender
 date : You can write the year after the date
-of : The issue of this enterprise affects the very existence of the company
-Birth : Birth-control drugs help couples limit the size of their families
 nationality : I have been discriminated against because of my nationality
 department : The reservation department was swamped with calls
 title : Should I refer to him by any special title or name?	
@@ -299,7 +281,6 @@ above : There is not much left above reprises
 LANDLORD : The landlord changed and the family were evicted from their accommodation
 MEDICAL : The local medical school falls short of cadavers
 CENTER : I volunteered at the emergency room at the medical center
-Date : School fees should be paid by the due date
 BIRTH : The baby suffers two deformities from birth defects
 CERTIFICATE : Who is sending the gift certificate?
 Hospital : The hospital bill drove him into bankruptcy
@@ -319,8 +300,6 @@ Members : An extra member was added to his family; he adopted a baby
 Health : I guess the most important thing is your health
 Plan : He is favorable to our plan
 Form : Request the information letter in due form
-Name : The username is not valid. Enter a valid username
-of : It is to be two of a kind
 farming : It was also used for farming
 operation : Numerous processes are used in our assembly operation, including underwater welding
 Number : The number of runaway teenagers is increasing these days
@@ -372,9 +351,7 @@ No. : No. This is a new location, I'm afraid
 Date : Did you meet anyone nice on the group blind date last weekend?
 of : Observance of the tax laws is required of everyone
 Birth : Birth-control drugs help couples limit the size of their families
-This : This is diametrically opposed to that
 is : He is above me in rank
-to : On reflection, it seems to me that I was unkind to her
 certify : Please certify your copy from your college
 that : That CD you lent me is really great
 the : The road is uphill all the way
@@ -407,9 +384,7 @@ HEAD : The teacher was biting the student's head off
 OF : Finish edge of tree with loops of green ribbon
 REGISTRATION : Please fill out this registration form 
 ADDRESS : For this site, you must enter your e-mail address as the password
-RELATIONSHIP : Our relationship was doomed from the start
 TO : I am sorry to have to disappoint you
-HOUSEHOLDER : rouse the careless householder to look to his fastenings
 NAME : She smiled weakly and whispered my name
 RESIDENT : A third factor is how the resident population feels about the immigrant culture
 NUMBER : They are reliant on a very limited number of exportable products
@@ -425,7 +400,6 @@ compliment : I don't think that was much of a compliment
 a : He is a famous as a tailor
 salesperson : The salesperson is moving the box
 Our : Our cat is stubborn as a mule
-Congratulations : I didn't know you were promoted. Congratulations!
 on : He was behind on his rent
 your : Were you able to renew your passport?
 sales : You must increase sales anyway you can
@@ -438,7 +412,6 @@ We : We are already too deeply involved
 Are : Are you sending the coin to the bottom?
 fortunate : It's fortunate that you weren't hurt
 to : On reflection, it seems to me that I was unkind to her
-have : You can have as much as you like
 You : You wouldn't!! Are you sure you did that? 
 on : It depends on what it is
 our : He is favorable to our plan
@@ -448,7 +421,6 @@ look : This statue is not much to look at
 forward : I'm afraid you're being forward withme
 to : To doubt is safer than to be secure
 more : He is not more diligent than you are
-success : His career was checkered by success and failure
 in : Melts in your mouth, not in your hand
 the : After the earthquake, gaping holes appeared in the walls of the house
 future : How I would live in the future is more important
@@ -467,12 +439,9 @@ areas : Men in rural areas used to kiss a woman's hand
 before : I was robbed before I could say boo
 going : They were forced to suck the hind tit of going first
 outside : outside will cool first so you have to watch it
-on : We are quite slow on the uptake
 warm : Let cool until it is just warm
 sunny : There are sunny days ahead. Don't worry about it
-days : The number of runaway teenagers is increasing these days
 Signature : The thieves pulled his signature out of thin air
-of : Most of the world uses the metric system of measurement
 Parent : Every parent knows how crucial the choice of friends is for every child
 Guardian : The way you're looking at your guardian angel is too scary
 Date : We have fifteen people enrolled to date
@@ -481,10 +450,6 @@ Cycling : News editors seem to have a thing for cycling stories these days
 Walking : The automobile has largely eliminated the need for walking
 Running : Rinse under running water for the same amount of time
 Checklist : I see, we read the bid and mark the checklist, is that right?
-Information : In other words, well-informed consumers watch for information and check for misinformation
-to : I am reluctant to help him. or I hate to help him
-have : While firstborns, typically, have fewer friends, middle children often have many
-on : He was behind on his rent
 hand : Melts in your mouth, not in your hand
 for : It was too much for me
 all : Who is the prettiest of us all?
@@ -503,27 +468,20 @@ products : They are reliant on a very limited number of exportable products
 services : I'm looking for child care services
 and : Change the language, and set installation and accessibility options
 number : They are reliant on a very limited number of exportable products
-of : The teaching of the school is in chime with the thought of the founder
 bike : This bike is in need of repair
-racks : Remove to racks and let cool completely
 available : When is the next available appointment?
-CERTIFICATE : Changes cannot be saved to the certificate store
 OF : It is to be two of a kind
 MANUFACTURE : The process of manufacture is a closely guarded secret
-to : He was swift to hear, slow to speak
 WHOM : To whom is the announcement directed?
 IT : Thread is so tangled up that it is impossible to straighten it out
 MAY : It may well be so. or That is not impossible
 CONCERN : My concern is for my son 
 Name : The username is not valid. Enter a valid username
-of : Place layers of onions on top of oranges, 
 Manufacturer : The fridge was sent back to the manufacturer 
 Address : What is your main message to people when you address them? 
 Factory : We have to hire some more workers for the factory
 Office : We have to vacate this office by next week
-Name : The username is not valid. Enter a valid username
 of : Place layers of onions on top of oranges
-Product : You have a week of days to test our product 
 Licence : If a person's licence is revoked
 No. : If a person's licence is revoked
 Sincerely : If a person's licence is revoked
@@ -533,7 +491,6 @@ HEALTH : Isn't your health more important than anything else in your life?
 CERTIFICATE : If your domain name changes, you will need to obtain a new certificate
 TO : She is too arrogant to speak to us
 WHOM : He does not state whom is laying there
-IT : Thread is so tangled up that it is impossible to straighten it out
 MAY : Be that as it may, I am sorry for him
 CONCERN : More recently complacency has turned into concern                              
 Item  : The cost of each item is stamped in ink on each item
@@ -545,22 +502,17 @@ Exporter : Which country is the third largest exporter to the US?
 Reference : Security credentials are needed for account reference reporting
 For : Thank you for sparing your precious time for me
 Risk : As I say, it is a risk
-of : I am conscious[well aware] of my want of ability
 Messrs : a firm of nursery gardeners and florist, Messrs. Cull and Rook
 Sincerely : I sincerely hope there is no problem
-Yours : Don't covet what is not yours
 General : The general effect of this picture appeals to me
 Director : He is our director in charge of the Importing and Exporting Department
 EMPLOYMENT : He is out of work and looking for employment
 CERTIFICATE : A certificate is issued by a Certificate Authority to confirm your identity to others
 Full : He veered full-speed into the parking lot
 Name : The Sunflower is the name of the restaurant
-Date : At one time, many men wanted to date me
-of : Place layers of onions on top of oranges
 Birth : The baby suffers two deformities from birth defects
 Resident : A third factor is how the resident population feels about the immigrant culture
 ID : I've forgotten my I.D. It must be in my other suit
-No. : No. This is a new location, I'm afraid
 Place : The surgeon manipulated the bones into place
 Origin : What was the origin of the plan?
 Present : She was not present at the meeting
@@ -595,23 +547,19 @@ for : You are solely responsible for it
 Doctor : The doctor is out on his rounds
 No. : No. This is a new location, I'm afraid 
 Name : Mary always tries to impress people by name-dropping
-in : Melts in your mouth, not in your hand
 Full : It is very old and full of meaning
 Authority : He wets himself in front of people who are in authority
 This : This is to dry them further
 is : Thread is so tangled up that it is impossible to straighten it out
 to : Were you able to talk to Mr. Silver?
 certify : I affirm the above to be true in every particular. or I hereby certify the above statement to be true and correct in every detail
-that : That is not so bad, considering
 it : It recks me little whether it is true or not
 is : It is highly commendable. or It is highly praiseworthy
 licensed : No medicinal product can be licensed if it does not have a medicinal purpose
 as : He is as leaky as a sieve
 stated : What is NOT stated in the article?
 above : Though poor, he is above telling a lie
-Date : You can write the year after the date
 of : It is to be two of a kind
-issue : The consulate office can issue you a visa	
 Minister : He was appointed Minister of Foreign Affairs and Trades
 of : By October of this year, almost half of the staff will have left
 Ministry : According to people at the ministry there was no need for confessions
@@ -627,12 +575,10 @@ no. : He was save close but no cigar
 & : Study Guide Alphabet Song & Chant A- E Review
 date : School fees should be paid by the due date 
 of : The facade of that building is made of wood
-invoice : We sent them an invoice, didn't we?
 L/C : Can't you make it two months after receipt of an L/C?
 for : It is useless for you to struggle
 account : I need to put some money into my account 
 risk : This is a risk that is hard to foretell and difficult to overcome
-of : The facade of that building is made of wood
 Messrs : Messrs Smith, Brown and Jones
 issuing : The police started off with a clean slate issuing temporary drivers' licenses
 bank : What time does the bank close today?
@@ -642,7 +588,6 @@ party : The party is sweating on the election day
 An : He has a queer gait. or He walks with an odd gait
 Identification : The two sisters proved their kinship by showing their identification cards
 Card : To continue your subscription, please mail the enclosed business reply card immediately
-for : I was looking for the key to my house
 Attorney : Did his attorney contact you about the trial?
 Registration : Please fill out this registration form
 No. : Please let me know soon whether it is yes or no
@@ -656,10 +601,8 @@ Name : There are many different people with the same name in the world
 in : He is always in a hurry
 full : Little Billy ate and ate until he was as full as a tick	 
 Date : Can you extend your validity date by one month?
-of : By October of this year, almost half of the staff will have left
 birth : He was born out of wedlock. or He is of illegitimate birth
 Date : You can write the year after the date
-of : They are of the same father but of different mothers
 issue : The issue came to the fore again as the presidential election neared
 Presentation : Some people are attending a presentation
 Checklist : That's why you were all given a checklist
@@ -667,15 +610,12 @@ TO : He was swift to hear, slow to speak
 MANAGEMENT : This parking lot is under private management
 Information : Carefully read, mark, learn, and inwardly digest and all the information will become yours
 to : I am reluctant to help him. or I hate to help him
-have : I'll have it for you in just a few minutes
 on : We are quite slow on the uptake
-hand : He betrayed his friend for his own hand
 Site : The cows are in the greenfield site
 analysis : In the last analysis, walking home would be the most reasonable way
 Employee : What time does the employee appreciation dinner start?
 Transportation : The river is not used for transportation
 Survey : The results of the survey were quite astonishing
-AVR : First, there is the AVR microcontroller-- the brains of the outfit
 EPP : All these parties are currently in the EPP
 calculation : The result is beyond calculation at present
 How : Fiddlesticks! or What nonsense! or How odd it is!
@@ -687,31 +627,21 @@ Name : We have desks, chairs, dining room tables and wall units. You name it
 Mon : It helps single parents with raising children, has social and educational programs and is open Mon.-Fri. 8:30-17:00 o'clock
 Thu : In Vietnam there is a holiday called Trung Thu.
 Wed : Jack wants to wed his love and have her cease her paternal fixation
-Thu : In Vietnam there is a holiday called Trung Thu.
 fri : Foxtrotalpha I spend a great deal of my time with my fri.
 Sat : The members of the committee sat round the table
 Sun : The water is evaporated by the sun
 Winner : I don't know who the winner was
 Sub : Do me a big favor and sub for me today, would you?
-Total : How many total issues do subscribers receive each year?
 License : This announcement is for anyone who is here to renew a driver's license
 for : I was looking for the key to my house
-pharmacist : Talk to your doctor or pharmacist if you have questions
 No. : No. I couldn't. I was too busy
-Name : We have desks, chairs, dining room tables and wall units. You name it
 in : Melts in your mouth, not in your hand
-full : He veered full-speed into the parking lot
-Date : Can you move the validity date ahead one month?
 of : The use of puppets dates back thousands of years
-birth : They cannot be issued birth certificates and passports as well as receive vaccinations
 Authority : The manager exerted his authority and demanded better performance from his employees
 This : This is fake back and edge
 is : He is quite contented as he is
 to : He was swift to hear, slow to speak
-certify : I hereby certify that the above information is all true and correct
-that : Would that I were young again!
 it : Thread is so tangled up that it is impossible to straighten it out
-is : He is quite contented as he is
 licensed : Our licensed, experienced guides are certified in first aid
 as : She was as much agitated as him
 stated : The pathology report stated my lump was malignant
@@ -721,30 +651,24 @@ Minister : The curate helped the minister prepare for Sunday services
 Health : People do not know the value of health till they lose it
 & : Letters & Phonics 
 Social : I'm not a very social being
-Affairs : Do your private affairs after work
 Official : He left his official life. or He quitted his office
 Seal : It is not necessary to seal the jars
 Stamped : The cost of each item is stamped in ink on each item
 Certificate : You have successfully completed the Certificate Renewal Wizard
-of : The water leaks out of the cask
 Pension : He is entitled to a pension
 No. : He was save close but no cigar
 Recipient : Recipient must be home at time of delivery
 Name : The username is not valid. Enter a valid username
-in : He is always in the dismals
 full : Little Billy ate and ate until he was as full as a tick
-K.I.D. : Close Handle Kid... 
 No. : I suppose so. I hope no one was hurt
 Relation : He may be competent, but here he is a poor relation
 of : All of these are the result of humankind's activities
 Soldier : He is a mere private soldier
 Reason : His audacity is far out of reason
-for : I was never the wiser for it
 Pension : The teacher lived on his pension after his retirement
 Rate : They managed to maintain the warranted rate of growth
 Date : The source and date of the document were omitted by an oversight
 of : The effect of this new kind of virus has a long arm
-Issue : He acted on the sidelines on the issue
 Minister : A minister was involved in the scandal
 of : Pottery is the art of making a pot out of clay
 Ministry : He dropped correspondence with the ministry proper
@@ -752,7 +676,6 @@ National : It is common knowledge that the national debt is huge
 Defense : Speak up in defense the exiled monk
 Official : She has a chance of becoming an official candidate for president
 Seal : Put figs and syrup into sterilised jars, seal and store in a cool place
-Stamped : The cost of each item is stamped in ink on each item
 CERTIFICATE : Thousands of executives have increased their competitive edge through our short, focused certificate programs
 OF : The purpose of the court system is to protect the rights of the people
 RESUMPTION : I was asked about the resumption of talks
@@ -766,19 +689,15 @@ Name : She was awakened by hearing her name called
 in : There are a lot of machines not in use[lying idle] in the factory
 full : This is the Help Center Full Text Search engine
 Date : School fees should be paid by the due date
-of : I left in a brace of shakes
-birth : But these bonuses appear to have little effect on the birth rates
 KID : My kid smeared paint on his hands
 No. : Unpleasant or no, it is true
 Position : She wanted a position with more benefits
 Department : The reservation department was swamped with calls
 Duration : We hope that the business recession will be of short duration
 of : Cover and cook very slowly until the duck is very tender (time depends on origin and size of duck)
-employment : I am at present in the employment of Mr. Smith
 At : It is not at all likely
 Issued : Cheap return tickets are issued to all South Coast resorts
 date : I had my very first blind date yesterday
-Official : He left his official life. or He quitted his office
 Seal : The document held by legal under his hand and seal
 Affixed : Inside the church there is a small plaque affixed to the church organ
 Survey : The results of the survey are in
@@ -788,7 +707,6 @@ SURVEYS : Surveys show E-mail is their main online activity
 Are : They are poles asunder. or They are as opposite as two poles
 instructions : Enclosed in this package are detailed instructions for assembling your new shelving unit
 on : He was behind on his rent
-the : The group of people who are on the brew
 following : Use one of the following basic share permissions, or create custom permissions
 criteria : Are you informed of the criteria?
 clear : Let's unpack and take a dip in the crystal clear, shimmering ocean
@@ -796,15 +714,12 @@ How : Fiddlesticks! or What nonsense! or How odd it is
 to : He was ready to listen to me
 complete : Are you planning on becoming salaried after the restructuring is complete?
 the : The legs of the table are groggy
-survey : The results of the survey were quite astonishing
 When : When is the next available appointment?
 to : I don't have the guts[nerve] to ask her to marry me
-complete : Are you planning on becoming salaried after the restructuring is complete?
 the : The man stretched his leg out in the aisle of the airplane
 survey : The survey questions were sent to 418 people
 Why : Why are you mumbling? Hurry up and tell me!
 should : Everything was as it should be
-employees : What kind of employees does the man want?
 participate : It doesn't look like we'll be able to participate.
 cover : Fill the eight lined ice cube cups with the chocolate; freeze atleast 4 hours, or cover and freeze up to a month
 memo : What is the purpose of this memo?
@@ -814,61 +729,42 @@ DEBT : There is some money left over after servicing the debt obligations
 ACKNOWLEDGEMEN : The flowers were a small acknowledgement of your kindness
 FORM : Mr. Cramdon is not form around here
 I : I was robbed before I could say boo
-the : The road is uphill all the way
 undersigned : We, the undersigned, agree to
 hereby : I hereby certify that the above information is all true and correct
 and : Oh, he is very tall and handsome
-acknowledge : I am sure that she will acknowledge
-to : He was swift to hear, slow to speak
 the : The man is predicting the future
-following : Allergy professionals offer the following advice: - Use allergy medications early
 Creditor : I am his creditor. or He owes me some money
 that : I heard that Bob was flunked out
 I : Allow me to tell you ;I will take the liberty ;I dare say;It is very presumptuous of me
 am : I am the beneficiary of his kindness
 indebted : We are indebted to science for this
 to : He was swift to hear, slow to speak
-said : The boy proudly said he was off the needle
 Creditor : The creditor allowed[granted] a day of grace period for repayment
-in : Stop putting your bib in my life
 the : The road is uphill all the way
-amount : Rinse under running water for the same amount of time
 of : The house of refuge is full of refugees
 dollars : That company sells three billion dollars of sneakers a year
-as : She was as much agitated as him
-of : There was not much of a breeze
 the : The man was about to be on the pounce
-below : The two triangles below are congruent
 mentioned : It's funny how you haven't mentioned him until now
 date : Can you move the validity date ahead one month?
 Signed : How many people have signed up for the workshop?
 on : The man was about to be on the pounce
 this : This damn copier is on the blink
 day : Shame on you! You paced away all day long
-of : The house of refuge is full of refugees
 the : The belts are hidden at the back
 month : How many times do you eat out a month?
-in : Melts in your mouth, not in your hand
 the : The trousers are baggy at the knees
-year : It rained hard about this time last year, too
 Witness : I'm innocent as God is my witness
 Debtor : The man put a debtor under the screw
 Dental : Acupuncture has also been shown to relieve pain after dental procedures
 Dentist : The dentist pulled out the wrong tooth
 a : He is a doer, not a talker
-Licence : If a person's licence is revoked
 Name : We have desks, chairs, dining room tables and wall units. You name it
-in : He is two years behind in[in arrears with] his dues
 Full : We are not here to impress each other full of pretense
 We : We are sorry that we cannot be of further assistance
 grant : Sure, I'll have this to Mr. Grant in about an hour
-license : This announcement is for anyone who is here to renew a driver's license
 as : She was as much agitated as him
-above : All of the above are to be included
 Issue : Storytelling provides an easy path into any complex issue
 Date : Can you move the validity date ahead one month?
-Certificate : For multiple-user systems, certificate(s) for each user must be individually saved
-of : Observance of the tax laws is required of everyone
 Army : Are you still interested in sponsoring The Salvation Army?
 Serve : To serve it is not necessary to def rost
 No. : No. it was a different injection
@@ -876,43 +772,28 @@ Regiment : Two regiments are being sent to garrison the town
 Grade : This reader is too difficult for second-year grade pupils
 Number : They are reliant on a very limited number of exportable products
 of : I am conscious[well aware] of my want of ability
-Unit : The members of a family are a cohesive unit in our society
-Name : We have desks, chairs, dining room tables and wall units. You name it
-in : How much is it in the back?
 Full : Her suitcase was absolutely full of souvenirs
-This : This is fake back and edge
-is : He is quite contented as he is
-to : I am reluctant to help him. or I hate to help him
 certify : I hereby certify that the above information is all true and correct
-that : I heard that Bob was flunked out
-the : After the earthquake, gaping holes appeared in the walls of the house
 above : I am pleased to inform you that your reservation is confirmed per above
 statement : His statement is based on fact. or His statement is authenticated in fact
 person : I had to choose only one person among those people
 is : Even though she is famous, she is still quite approachable
 served : Shoes have not always served such a purely functional purpose
 with : She was enamored with the puzzle
-this : This damn copier is on the blink
 navy : The admiral retired from the navy
 headquarters : My office is the headquarters for our company's work on that project
-Date : We have fifteen people enrolled to date
 of : There was not much of a breeze
-issue : He acted on the sidelines on the issue
 RECOMMENDATION : Do I need recommendation letters, too?
-Dear : Ah dear me, how sad it all is
 Admissions : This particular college has a very selective admissions policy
 Director : Director Lee will preside over the meeting
-I : I was robbed before I could say boo
 am : I am impervious[callous] to their abuse
 very : He is very diligent about his responsibilities
 pleased : He was much pleased to hear that
 to : It is quite silly of you to try to force him to consent
 recommend : I recommend that the work (should) be done at once
 to : She is impossible to talk to when she's angry
-your : Were you able to renew your passport?
 graduate : We will then launch an education program offering graduate degrees in public service
 program : Displays program information, version number, and copyright
-in : There is no one who can match him in his ability in English
 architectural : She works as a draftsman for an architectural firm
 design : When are the design plans due?
 I : I am glad indeed
@@ -925,11 +806,8 @@ studio : My studio is too small; I'm moving to a one-bedroom home
 Since : It is[has been] two years since I left school
 Then : Then they are probably in the refrigerator
 I : I can't believe how forgetful I am
-have : I have ten days a year
 been : Been together so long and this could never be wrong
-in : I haven't improved much in speaking in English
 close : Boy, that was a close call
-contact : Inventions like the toothbrush, contact lenses, and credit cards came into use long ago
 with : He was mixed up with something shady
 him : He is always there for you if you need him
 Compliment : I don't think that was much of a compliment
@@ -938,7 +816,6 @@ I : Such as I am, I am happy
 thoroughly : Beat in thoroughly, one at a time, 4 eggs
 enjoyed : I hope you enjoyed your meal
 your : Were you able to renew your passport?
-presentation : I'm hard at work on my next presentation
 yesterday : Seems like only yesterday that we were in kindergarten
 evening : What time does the caretaker lock the building every evening?
 Your : Did you send your kids to nursery school?
@@ -949,11 +826,8 @@ engaging : Abstinence is defined as not engaging in sexual intercourse
 that : That old vase is a genuine antique
 I : I am reluctant to help him. or I hate to help him
 lost : When graduated from the school, she lost her playmates
-all : Who is the prettiest of us all?
 track : She won since she had the inside track
-of : There was not much of a breeze
 time : We had such a blissful time on our honeymoon
-도서관 : 맘 맞는 분들과 함께 도서관 자원봉사로 운영하고 _ 읽은 책들로 도서관을 만든다는 이야기 _ 도서관에서 책을 빌린 상태입니다
 변경등록 : 영화상영관 변경등록은 변경사유가 발생한 날부터 _ 유독물영업 변경등록 관련 _ 장애인 공동명의 차량의 변경 등록 관련  
 신청서 : 과태료 이의신청서 양식이 필요하신 분들은 _ 만약 신청서를 뽑아가야 한다면 _ 연장근무신청서 제출 여부
 도서관의 : 도서관의 1층을 마저 보고 나가려던 내 눈을 사로잡은 것은 바로 저 빨간 벽이었다 _ 도서관의 독서 장려 캠페인 _ 도서관의 경우, 대부분 자리에 대해 좌석제 시행하기 때문에
@@ -1366,8 +1240,6 @@ time : We had such a blissful time on our honeymoon
 항목 : 내집마련 노하우 와 노후 준비 항목 _ 건강검진 항목인데요 설명 부탁드려요 _ 중복된 항목 제거라는 아이콘이 있는데, 클릭을 하시면 됩니다
 기간 : 종아리퇴축술 유지기간 _ 주민등록증 발급기간 _ 치아미백 기간 효과적으로 단축하자
 휴업 : 개점휴업 _ 휴업급여에 관해서는 전혀 청구한 내용이 안보입니다 _ 대형마트 의무휴업
-폐업 : 식당폐업 잘하는곳 _ 거래처가 폐업했을때 미수금은 못받는건가요? _ 창업자 대출 후 폐업할 경우
-영업재개 : 주방 영업재개 _ 영업재개는 언제쯤 이루어 질까요? _ 영업재개관련없이 불신으로 하루라도 빨리 찾고싶네요
 사유 : 혼전성교가 이혼사유가 되는가? _ 계약직이 귀책사유없이 해고당하면 _ 감각에 반해 사유는 보편적인 것
 위와 : 위와 아래 여백 없애는 방법 _ 하늘 위와 하늘 아래라는 뜻으로 _ 노인단독가구의 주행위와
 같이 : 공장알바같이하실분 _ 같이 밥 먹을래 _ 같이 자자
