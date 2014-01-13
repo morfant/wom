@@ -20,6 +20,11 @@ DATA_FILE_4 = "data_4.txt"
 #data.txt의 마지막 줄에는 내용 없는 엔터가 필요하다. 마지막 줄 끝에 \n 이 입력되어야 하기 때문에.
 
 
+#################################### GLOBAL VARIABLE ####################################
+keys = ""
+keys_ENG = ""
+
+
 #################################### HTML ####################################
 MAIN_PAGE_HTML = """\
 <!DOCTYPE html>
@@ -158,38 +163,57 @@ class FillDB_4(webapp2.RequestHandler) :
         readFileToNdb(4)
         self.response.write("DB is filled with data_4.")
 
+class SetupDB(webapp2.RequestHandler) :
+    def get(self) :
+        global keys
+        global keys_ENG
+        keys = makeKeyList()
+        keys_ENG = makeKeyList_ENG()
+        for key in keys :
+            print ("key %s" % key)
+        for key in keys_ENG :
+            print ("key_ENG %s" % key)
+
+
+        self.response.write("DB is set.")
+
+
 class FindDB(webapp2.RequestHandler) :
     def get(self) :
+        global keys
+        global keys_ENG
         toFindstrLists = []
         #os.system('say wait')
         #print sys.platform
         imgPrinted = False
         toFindstr = ' '
         numOfmatch = 0
-        keys = makeKeyList()
-        keys_ENG = makeKeyList_ENG()
         #print keys
         toFind = self.request.get('searchingWord') #unicode
         if toFind == "" :
-            #print ("nothing is in.")
+            # print ("nothing is in.")
             randImgDisplay(self, 34)
         else :
+            if len(keys) == 0 :
+                keys = makeKeyList()
+                keys_ENG = makeKeyList_ENG()
+
             toFindstr = toFind.encode('utf-8')
             toFindstrList = toFindstr.split(' ')
             for element in toFindstrList: #make a list that space attached to each end of word.
                 toFindstrLists.append(element + " ")
-            #print ("toFindstrLists: %s" % toFindstrLists)
+            # print ("toFindstrLists: %s" % toFindstrLists)
             resultSentence = " "
 
             for word in toFindstrLists: #split by space
-                #print ("\nFinding word: %s" % word)
+                # print ("\nFinding word: %s" % word)
 
                 numOfmatchInWord = 0;
 
                 if isKorean(word) :
                     for key in keys :
-                        #print ("key: %s" % key)
-                        #print("isKorean: %s" % isKorean(word))
+                        # print ("key: %s" % key)
+                        # print("isKorean: %s" % isKorean(word))
                         if word.find(key) is not -1: #something matched in KOREAN
                             #print("Matched in KOREAN!")
                             randomResultStr = randDBOut(WOM, key)
@@ -376,6 +400,7 @@ application = webapp2.WSGIApplication([
     ('/fillData_2', FillDB_2),
     ('/fillData_3', FillDB_3),
     ('/fillData_4', FillDB_4),
+    ('/setData', SetupDB),
     ('/findData', FindDB)
     #('/del', DelDB)
     ], debug=True)
