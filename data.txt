@@ -45,7 +45,7 @@ magazine : It is the policy of the magazine not to accept unsolicited submission
 media : That doesn't mean he is any less media savvy
 kit : Don't worry. I have my repair kit with me 
 requested : Why has Rhonda Miller requested a leave of absence?
- media : That doesn't mean he is any less media savvy
+media : That doesn't mean he is any less media savvy
 received : Our product received a poor reception in our test market: 
 comments : He casually threw in a few comments 
 fax : The telephone and fax numbers are switched

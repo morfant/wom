@@ -23,6 +23,8 @@ DATA_FILE_4 = "data_4.txt"
 #################################### GLOBAL VARIABLE ####################################
 keys = ""
 keys_ENG = ""
+korIdx = 0
+engIdx = 0
 
 class StaticKeys :
     keys = ""
@@ -48,10 +50,8 @@ MAIN_PAGE_HTML = """\
                 line-height: 0.1;
                 }
             p {
-                text-align: left;
                 font-size: 12px;
-
-            }
+                }
         </style>
 
     </head>
@@ -66,12 +66,23 @@ MAIN_PAGE_HTML = """\
                     <input type="submit" value="번역 / Translate">
                 </div>
             </form>
-            <div style="position: relative; left: 400px; top: 200px">
+            <div style="position: relative; top: 200px" align="center">
                 <p>
-                한국어/영어 입력 가능합니다.
+                한국어와 영어 입력이 가능합니다.
                 <br>
                 한국어 입력 시에는 한국어 결과가, 영어 입력시에는 영어 결과가 출력됩니다.
+                <br>
+                한국어와 영어를 함께 사용하는 경우에는 이미지가 출력 됩니다.
                 </p>
+                <p>
+                KOREAN and ENGLISH are both available.
+                <br>
+                Entering words in each language makes different result(s);
+                Entering words in KOREAN makes result(s) in KOREAN, and entering words in ENGLISH makes result(s) in ENGLISH.
+                <br>
+                If you enter words in KOREAN and ENGLISH at the same time, random image will be displayed.
+                </p>
+
             </div>
         </div>
     </body>
@@ -103,6 +114,10 @@ FIND_PAGE_HTML = """\
             font-size: 10px;
             line-height: 0.1;
             }
+        p {
+            font-size: 12px;
+            }
+
 
     </style>
 
@@ -111,7 +126,7 @@ FIND_PAGE_HTML = """\
         <div align="center">
             <form method="get" action="/">
                 <div style="margin-top: 30px">
-                    <input type="submit" value="돌아가기">
+                    <input type="submit" value="돌아가기 / Go back">
                 </div>
             </form>
         </div>
@@ -244,7 +259,9 @@ class FindDB(webapp2.RequestHandler) :
             # print ("toFindstrLists: %s" % toFindstrLists)
             resultSentence = " "
 
-            if isKoreanToList(toFindstrList) == 0 : #All kor words
+            isKoreanToListResult = isKoreanToList(toFindstrList)
+
+            if isKoreanToListResult == 0 : #All kor words
                 if isExactlyMatchToList(toFindstrList, StaticKeys.keys) :
                     for word in toFindstrList: #split by space
                         result = randDBOutInMatchingWord(WOM, word)
@@ -255,7 +272,7 @@ class FindDB(webapp2.RequestHandler) :
                     self.response.write('<div align = "center", padding-top: 50px>' \
                     + resultSentence + '</div>')
 
-            elif isKoreanToList(toFindstrList) == 1 : #All eng words
+            elif isKoreanToListResult == 1 : #All eng words
                 if isExactlyMatchToList(toFindstrList, StaticKeys.keys_ENG) :
                     for word in toFindstrList: #split by space
                         result = randDBOutInMatchingWord(WOM_ENG, word)
@@ -266,7 +283,7 @@ class FindDB(webapp2.RequestHandler) :
                     self.response.write('<div align = "center", padding-top: 50px>' \
                     + resultSentence + '</div>')
 
-            elif isKoreanToList(toFindstrList) == 2 : #kor + eng
+            elif isKoreanToListResult == 2 : #kor + eng
                 randImgDisplay(self, 34)
 
             # else :
@@ -416,14 +433,14 @@ def isExactlyMatchToList(wordList, DBList) :
 
 
 def randDBOutInRandomWord(dataBase, DBLength) :
-    # print ("DBLength : %s" % DBLength)
+    print ("DBLength : %s" % DBLength)
     randomIdx = random.randint(0, DBLength - 1)
-    # print randomIdx
+    print ("randomIdx : %s" % randomIdx)
     womquery = dataBase.query(dataBase.idx == randomIdx)
     queryReturn = womquery.fetch(1)
-    # print queryReturn
+    print queryReturn
     resultContentList = queryReturn[0].content.split(' _ ')
-    # print resultContentList
+    print resultContentList
     randomResult = resultContentList[random.randint(0, len(resultContentList) - 1)]
     randomResultStr = randomResult.encode('utf-8')
     return randomResultStr
@@ -452,8 +469,9 @@ def clearExistingDB() :
     ndb.get_context().clear_cache()
 
 def readFileToNdb(numOfDB) :
-    korIdx = 0
-    engIdx = 0
+    global korIdx
+    global engIdx
+    
     if numOfDB == 1:
         f = open(DATA_FILE_1, 'r')
     elif numOfDB == 2:
@@ -529,7 +547,7 @@ def isKorean(word) :
 
 def isKoreanToList(wordList) :
     numOfWord = len(wordList)
-    # print numOfWord
+    print numOfWord
     kor = 0
     eng = 0
     if numOfWord != 0 :
@@ -539,7 +557,7 @@ def isKoreanToList(wordList) :
                 # print ("kor : %s " % kor)
             else :
                 eng = eng + 1
-                # print ("eng : %s " % eng)
+                print ("eng : %s " % eng)
 
         if eng == 0 :
             print "The wordlist is korean"
