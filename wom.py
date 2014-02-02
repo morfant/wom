@@ -483,7 +483,10 @@ def isKoreanToList(wordList) :
             else :
                 mixed = mixed + 1
 
-        if eng == 0 and kor > 0:
+        if mixed != 0 :
+            print "The wordlist is Mixed"
+            return 2 #kor + eng
+        elif eng == 0 and kor > 0:
             print "The wordlist is korean"
             return 0 #kor
         elif kor == 0 and eng > 0 :
