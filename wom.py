@@ -67,12 +67,12 @@ MAIN_PAGE_HTML = """\
                 <p>
                 한국어와 영어 입력이 가능합니다.
                 <br>
-                한국어와 영어를 함께 사용하는 경우에는 이미지가 출력 됩니다.
+                한국어와 영어(숫자, 특수문자 포함)를 함께 사용하는 경우에는 이미지가 출력 됩니다.
                 </p>
                 <p>
                 KOREAN and ENGLISH are both available.
                 <br>
-                If you enter words in KOREAN and ENGLISH at the same time, random image will be displayed.
+                If you enter words in KOREAN and ENGLISH(Numbers and special characters are included) at the same time, random image will be displayed.
                 </p>
 
             </div>
@@ -191,7 +191,6 @@ class SetupDB(webapp2.RequestHandler) :
 
         print StaticKeys.keys
         print StaticKeys.keys_ENG
-
 
         self.response.write("DB is set.")
 
@@ -421,7 +420,7 @@ def readAllDataFileToNdb() :
         # print line
         tline = line.split(" : ") #: 으로 나누는 것과 ' : '으로 나누는 것은 dic이 되었을 때 결과값이 다르다.
         key = tline[0]
-        print key
+        # print key
         escapeNvalue = tline[1][:(len(tline[1]) - 1)] #마지막 문자인 '\n'을 제거한다.
         #print escapeNvalue
 
@@ -448,31 +447,78 @@ def readAllDataFileToNdb() :
 def isKorean(word) :
     return bool(re.search(r'(([\x7f-\xfe])+)', word))
 
+def isKoreanToWord(word) :
+    if bool(re.search(r'(([\x7f-\xfe])+)', word)) :
+        # if bool(re.search(r'(([a-zA-Z0-9])+)', word)) :
+        if bool(re.search(r'(([a-zA-Z0-9])+|([`~!@#$%^&*()_+=-{[]}:;,.<>?/|\\"\'])+)', word)) :
+            #mixed
+            print "The word is korean + english"
+            return 2 #kor + eng
+        else :
+            #korean
+            print "The word is korean"
+            return 0 #All kor
+
+    else :
+        #english or number or special key...
+        print "The word is english"
+        return 1 #All eng
+
 def isKoreanToList(wordList) :
     numOfWord = len(wordList)
     # print numOfWord
     kor = 0
     eng = 0
+    mixed = 0
     if numOfWord != 0 :
         for word in wordList :
-            if isKorean(word) :
+            isKoreanResult = isKoreanToWord(word)
+
+            if isKoreanResult == 0 :
                 kor = kor + 1
                 # print ("kor : %s " % kor)
-            else :
+            elif isKoreanResult == 1 :
                 eng = eng + 1
                 # print ("eng : %s " % eng)
+            else :
+                mixed = mixed + 1
 
-        if eng == 0 :
+        if eng == 0 and kor > 0:
             print "The wordlist is korean"
-            return 0 #All kor
-
-        elif kor == 0 :
-            print "The wordlist is ENGLISH"
+            return 0 #kor
+        elif kor == 0 and eng > 0 :
+            print "The wordlist is english"
             return 1 #All eng
-
         else :
-            print "The wordlist is korean + ENGLISH"
+            print "The wordlist is Mixed"
             return 2 #kor + eng
+
+
+# def isKoreanToList(wordList) :
+#     numOfWord = len(wordList)
+#     # print numOfWord
+#     kor = 0
+#     eng = 0
+#     if numOfWord != 0 :
+#         for word in wordList :
+#             if isKorean(word) :
+#                 kor = kor + 1
+#                 # print ("kor : %s " % kor)
+#             else :
+#                 eng = eng + 1
+#                 # print ("eng : %s " % eng)
+
+#         if eng == 0 :
+#             print "The wordlist is korean"
+#             return 0 #All kor
+
+#         elif kor == 0 :
+#             print "The wordlist is ENGLISH"
+#             return 1 #All eng
+
+#         else :
+#             print "The wordlist is korean + ENGLISH"
+#             return 2 #kor + eng
 
 
 
