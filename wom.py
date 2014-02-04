@@ -41,9 +41,8 @@ MAIN_PAGE_HTML = """\
                 top: 50px;
                 }
             #foot {
-                position: fixed;
-                right: 20px;
-                bottom: 120px;
+                position: relative;
+                top: 400px;
                 font-size: 10px;
                 }
             p {
@@ -72,7 +71,7 @@ MAIN_PAGE_HTML = """\
                 <p>
                 KOREAN and ENGLISH are both available.
                 <br>
-                If you enter words in KOREAN and ENGLISH(Numbers and special characters are included) at the same time, random image will be displayed.
+                If you enter words in KOREAN and ENGLISH(Numbers and special characters are included) at the same time,<br>random image will be displayed.
                 </p>
 
             </div>
@@ -80,8 +79,8 @@ MAIN_PAGE_HTML = """\
     </body>
 
     <footer>
-        <div id="foot" align="right">
-            <p>TaewonKim<br>&<br>giy<br>taewonnice@naver.com</p>
+        <div id="foot" align="center">
+            <p>Taewon Kim & Gang il Yi<br>taewonnice@naver.com / giy.hands@gmail.com</p>
         </div>
     </footer>
 
@@ -97,9 +96,8 @@ FIND_PAGE_HTML = """\
     <style type="text/css">
         body {margin-top: 50px;}
         #foot {
-            position: fixed;
-            right: 20px;
-            bottom: 120px;
+            position: relative;
+            top: 100px;
             font-size: 10px;
             }
         p {
@@ -121,8 +119,8 @@ FIND_PAGE_HTML = """\
     </body>
 
     <footer>
-        <div id="foot" align="right">
-            <p>TaewonKim<br>&<br>giy<br>giy.hands@gmail.com</p>
+        <div id="foot" align="center">
+            <p>Taewon Kim & Gang il Yi<br>taewonnice@naver.com / giy.hands@gmail.com</p>
         </div>
     </footer>
 
@@ -189,8 +187,12 @@ class SetupDB(webapp2.RequestHandler) :
         StaticKeys.keys = makeKeyList()
         StaticKeys.keys_ENG = makeKeyList_ENG()
 
-        print StaticKeys.keys
-        print StaticKeys.keys_ENG
+        # print StaticKeys.keys
+        # print StaticKeys.keys_ENG
+
+        print len(StaticKeys.keys)
+        print len(StaticKeys.keys_ENG)
+
 
         self.response.write("DB is set.")
 
@@ -442,6 +444,9 @@ def readAllDataFileToNdb() :
             engIdx = engIdx + 1
     f.close()
 
+    print ("korIdx : %s" % korIdx)
+    print ("engIdx : %s" % engIdx)
+
 
 #정규표현식을 이용하여 한글이 포함되어 있는지를 판단한다.
 def isKorean(word) :
@@ -449,8 +454,7 @@ def isKorean(word) :
 
 def isKoreanToWord(word) :
     if bool(re.search(r'(([\x7f-\xfe])+)', word)) :
-        # if bool(re.search(r'(([a-zA-Z0-9])+)', word)) :
-        if bool(re.search(r'(([a-zA-Z0-9])+|([`~!@#$%^&*()_+=-{[]}:;,.<>?/|\\"\'])+)', word)) :
+        if bool(re.search(r'(([^\x7f-\xfe])+)', word)) :
             #mixed
             print "The word is korean + english"
             return 2 #kor + eng
@@ -483,7 +487,10 @@ def isKoreanToList(wordList) :
             else :
                 mixed = mixed + 1
 
-        if eng == 0 and kor > 0:
+        if mixed != 0 :
+            print "The wordlist is Mixed"
+            return 2 #kor + eng
+        elif eng == 0 and kor > 0:
             print "The wordlist is korean"
             return 0 #kor
         elif kor == 0 and eng > 0 :
