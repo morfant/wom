@@ -5,10 +5,21 @@ api_version: 1
 threadsafe: false
 
 handlers:
+- url: /audio
+  static_dir: audio
+  mime_type: audio/mp3
+- url: /tm/audio
+  static_dir: audio
+  mime_type: audio/mp3
+  
 - url: /img
   static_dir: img
 - url: /data
   static_dir: data
+- url: /js
+  static_dir: js
+- url: /tm/js
+  static_dir: js
 - url: /.*
   script: wom.application
 
