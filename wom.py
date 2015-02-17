@@ -29,64 +29,6 @@ class StaticKeys :
     keys_ENG = ""
 
 #################################### HTML ####################################
-MAIN_PAGE_HTML = """\
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-
-        <style type="text/css">
-            body {
-                position: relative;
-                top: 50px;
-                }
-            #foot {
-                position: relative;
-                top: 400px;
-                font-size: 10px;
-                }
-            p {
-                font-size: 12px;
-                }
-        </style>
-
-    </head>
-
-    <body>
-        <div>
-            <form method="get" action="/findData">
-                <div align="center">
-                    <input type="text" size="100" name="searchingWord">
-                </div>
-                <div style="position: relative; top: 50px" align="center">
-                    <input type="submit" value="번역 / Translate">
-                </div>
-            </form>
-            <div style="position: relative; top: 200px" align="center">
-                <p>
-                한국어와 영어 입력이 가능합니다.
-                <br>
-                한국어와 영어(숫자, 특수문자 포함)를 함께 사용하는 경우에는 이미지가 출력 됩니다.
-                </p>
-                <p>
-                KOREAN and ENGLISH are both available.
-                <br>
-                If you enter words in KOREAN and ENGLISH(Numbers and special characters are included) at the same time,<br>random image will be displayed.
-                </p>
-
-            </div>
-        </div>
-    </body>
-
-    <footer>
-        <div id="foot" align="center">
-            <p>Taewon Kim & Gang il Yi<br>taewonnice@naver.com / giy.hands@gmail.com</p>
-        </div>
-    </footer>
-
-</html>
-"""
-
 FIND_PAGE_HTML = """\
 <!DOCTYPE html>
 <html>
@@ -110,7 +52,7 @@ FIND_PAGE_HTML = """\
     </head>
     <body>
         <div align="center">
-            <form method="get" action="/">
+            <form method="get" action="/t1">
                 <div style="margin-top: 30px">
                     <input type="submit" value="돌아가기 / Go back">
                 </div>
@@ -194,13 +136,19 @@ T0_PAGE_HTML = """\
        
        <div id="menu" style="position: relative; top: 30px; left: 20px; width: 600px;" align="left">
        <span>
-       <a href="../tm/t1">번역기 1 &nbsp | &nbsp Translator 1</a>
+       <a href="../t1">번역기 1 (임대된 사무실) &nbsp | &nbsp Translator 1 (A rented office) </a>
        </span>
        <br>
        <br>
        <span>
-       <a href="../tm/t2">번역기 2  &nbsp | &nbsp Translator 2</a>
+       <a href="../t2">번역기 2 (사서) &nbsp | &nbsp Translator 2 (Librarian) </a>
        </span>
+       <br>
+       <br>
+       <span>
+       <a href="../t3">번역기 3 (도서박람회) &nbsp | &nbsp Translator 3 (Book Festival) </a>
+       </span>
+ 
        </div>
 
    </body>
@@ -214,8 +162,77 @@ T0_PAGE_HTML = """\
 </html>
 """
 
-
 T1_PAGE_HTML = """\
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+
+        <style type="text/css">
+            body {
+                position: relative;
+                top: 50px;
+                }
+            #foot {
+                position: relative;
+                top: 400px;
+                font-size: 10px;
+                }
+            p {
+                font-size: 12px;
+                }
+        </style>
+
+    </head>
+
+    <body>
+
+        <div>
+            <form method="get" action="/findData">
+                <div align="center">
+                    <input type="text" size="100" name="searchingWord">
+                </div>
+                <div style="position: relative; top: 50px" align="center">
+                    <input type="submit" value="번역 / Translate">
+                </div>
+            </form>
+            <div style="position: relative; top: 200px" align="center">
+                <p>
+                한국어와 영어 입력이 가능합니다.
+                <br>
+                한국어와 영어(숫자, 특수문자 포함)를 함께 사용하는 경우에는 이미지가 출력 됩니다.
+                </p>
+                <p>
+                KOREAN and ENGLISH are both available.
+                <br>
+                If you enter words in KOREAN and ENGLISH(Numbers and special characters are included) at the same time,<br>random image will be displayed.
+                </p>
+
+            </div>
+        </div>
+    </body>
+
+    <footer>
+        <div id="foot" align="center">
+            <p>Taewon Kim & Gang il Yi<br>taewonnice@naver.com / giy.hands@gmail.com</p>
+
+            <form method="get" action="/">
+                <div style="margin-top: 30px">
+                    <input type="submit" value="Main">
+                </div>
+            </form>
+ 
+        </div>
+
+
+    </footer>
+
+</html>
+"""
+
+
+
+T2_PAGE_HTML = """\
 <!DOCTYPE html>
 <html>
     <head>
@@ -529,7 +546,7 @@ T1_PAGE_HTML = """\
 """
 
 
-T2_PAGE_HTML = """\
+T3_PAGE_HTML = """\
 <!DOCTYPE html>
 <html>
     <head>
@@ -740,78 +757,6 @@ T2_PAGE_HTML = """\
 """
 
 
-T3_PAGE_HTML = """\
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-        <title>번역기_3</title>
-
-        <style type="text/css">
-            body {
-                position: relative;
-                top: 50px;
-                }
-            #foot {
-                position: relative;
-                top: 400px;
-                font-size: 10px;
-                }
-
-            #divider{
-                position: absolute;
-                left: 500px;
-                }
- 
-            button{
-                position: relative;
-                left: 200px;
-                }
- 
-            p {
-                font-size: 12px;
-                }
-
-        </style>
-
-    </head>
-
-    <body>
-        <div>
-            <form method="get" action="/findData">
-                <div align="center">
-                    <input type="text" size="100" name="searchingWord">
-                </div>
-                <div style="position: relative; top: 50px" align="center">
-                    <input type="submit" value="번역 / Translate">
-                </div>
-            </form>
-            <div style="position: relative; top: 200px" align="center">
-                <p>
-                한국어와 영어 입력이 가능합니다.
-                <br>
-                한국어와 영어(숫자, 특수문자 포함)를 함께 사용하는 경우에는 이미지가 출력 됩니다.
-                </p>
-                <p>
-                KOREAN and ENGLISH are both available.
-                <br>
-                If you enter words in KOREAN and ENGLISH(Numbers and special characters are included) at the same time,<br>random image will be displayed.
-                </p>
-
-            </div>
-        </div>
-    </body>
-
-    <footer>
-        <div id="foot" align="center">
-            <p>Taewon Kim & Gang il Yi<br>taewonnice@naver.com / giy.hands@gmail.com</p>
-        </div>
-    </footer>
-
-</html>
-"""
-
-
 PLAYSOUND_PAGE_HTML = """\
 <!DOCTYPE html>
 <html>
@@ -892,11 +837,6 @@ class WOM_ENG(ndb.Model) :
     idx = ndb.IntegerProperty(indexed=True)
 
 #################################### PAGES ####################################
-class MainPage(webapp2.RequestHandler) :
-    # print (sys.getdefaultencoding())
-    def get(self) :
-        self.response.out.write(MAIN_PAGE_HTML)
-
 class DelDB(webapp2.RequestHandler) :
     def get(self) :
         clearExistingDB()
@@ -1337,7 +1277,6 @@ def getFileNum(targetFolder, extension) :
 
 
 application = webapp2.WSGIApplication([
-    ('/', MainPage),
     ('/delData', DelDB),
     ('/fillData', FillDB_ALL),
     ('/fillData_1', FillDB_1),
@@ -1347,10 +1286,10 @@ application = webapp2.WSGIApplication([
     ('/setData', SetupDB),
     ('/findData', FindDB),
 
-    ('/tm', Translator_Main),
-    ('/tm/t1', Translator_1),
-    ('/tm/t2', Translator_2),
-    ('/tm/t3', Translator_3),
+    ('/', Translator_Main),
+    ('/t1', Translator_1),
+    ('/t2', Translator_2),
+    ('/t3', Translator_3),
 
     ('/playSound', playSound)    
 
