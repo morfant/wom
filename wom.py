@@ -167,7 +167,7 @@ T1_PAGE_HTML = """\
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-
+        <title>번역기_1 (A rented office)</title>
         <style type="text/css">
             body {
                 position: relative;
@@ -238,7 +238,7 @@ T2_PAGE_HTML = """\
     <head>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-        <title>번역기_1</title>
+        <title>번역기_2 (Librarian)</title>
 
         <style type="text/css">
             body {
@@ -552,7 +552,7 @@ T3_PAGE_HTML = """\
     <head>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-        <title>번역기_2</title>
+        <title>번역기_3 (Book Festival)</title>
 
         <style type="text/css">
             body {
