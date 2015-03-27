@@ -114,6 +114,10 @@ T0_PAGE_HTML = """\
             font-size: 12px;
             }
 
+            #guide {
+            font-size: 11px;
+            }
+
             a {
             color: black;
             text-decoration: none;
@@ -148,8 +152,29 @@ T0_PAGE_HTML = """\
        <span>
        <a href="../t3">번역기 3 (도서박람회) &nbsp | &nbsp Translator 3 (Book Festival) </a>
        </span>
- 
+
        </div>
+       
+       <div id="guide" style="position: relative; top: 380px; left:20px;" align="left">
+       <span>
+       * '번역기 2(사서)'와 '번역기3(도서박람회)'는 Internet Explore에서 정상 작동하지 않습니다. 
+       구글 크롬 등 Web Audio API를 지원하는 브라우저가 필요합니다.
+       </span><br>
+      <span>
+       ** '번역기 2(사서)'의 사용을 위해서는 내장 혹은 외장 마이크가 연결되어 있어야 하며,
+       페이지 이동 후 상단 안내 메시지를 통해 브라우저에서의 장치 접근을 허용해 주어야 합니다.
+       </span><br><br>
+
+       <span>
+       * Internet Explore doesn’t support 'Translator 2(Librarian)' and 'Translator 3(Book Festival)'.
+       You need to use web browsers that support Web Audio API(Mozila Firefox, Google Chrome, etc.).
+       </span><br>
+       <span>
+       ** Microphone(built-In or external) is needed to use 'Translator 2(Librarian)'.
+       After page loaded, click ‘Allow’ in top guide message to allow browser to access your input device.
+       </span>
+       </div>
+
 
    </body>
 
