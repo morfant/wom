@@ -157,7 +157,7 @@ T0_PAGE_HTML = """\
        
        <div id="guide" style="position: relative; top: 380px; left:20px;" align="left">
        <span>
-       * '번역기 2(사서)'와 '번역기3(도서박람회)'는 Internet Explore에서 정상 작동하지 않습니다. 
+       * '번역기 2(사서)'와 '번역기3(도서박람회)'은 Internet Explore에서 정상 작동하지 않습니다. 
        구글 크롬 등 Web Audio API를 지원하는 브라우저가 필요합니다.
        </span><br>
       <span>
